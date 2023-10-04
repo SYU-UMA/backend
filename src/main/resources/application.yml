@@ -19,3 +19,6 @@ spring:
       hibernate:
         format_sql: true
 
+
+chatgpt:
+  api-key: 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
