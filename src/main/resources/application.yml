@@ -7,6 +7,8 @@ spring:
     url: jdbc:mysql://localhost:3306/springdb
     username: root
     password: 5287
+  profiles:
+    include: API-KEY
 
 
 
@@ -18,7 +20,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-
 chatgpt:
-  api-key: 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
+  api-key: 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
+  max-tokens: 3000
+
+
+
+
+
+

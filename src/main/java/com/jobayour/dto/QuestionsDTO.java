@@ -10,7 +10,7 @@ public class QuestionsDTO {
 
     private String job;       //직무
     private String career;       //연차
-    private String level;       //난이도
+    private String level;       //난이도       1~5, 1이 가장 어려운 질문
     private String requirement;       //자격요건
 
     public String getJob() {
