@@ -1,5 +1,6 @@
 package com.jobayour.controller;
 
+
 import com.jobayour.service.ChatService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ public class HelloWorldController {
     public String test() {
         return "Hello, world!";
     }
+
 
 
 
