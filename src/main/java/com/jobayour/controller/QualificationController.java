@@ -18,9 +18,9 @@ public class QualificationController {
     }
     // 유저아이디로 증명조회
     @GetMapping("/list/{id}")
-    public List<QualificationDTO> qualList(@PathVariable String id) {
-        List<QualificationDTO> qualList = qualificationService.findByIdqual(id);
-        return qualList;
+        public List<QualificationDTO> qualList(@PathVariable String id) {
+            List<QualificationDTO> qualList = qualificationService.findqualById(id);
+            return qualList;
     }
 
     // 유저 증명 추가

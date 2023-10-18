@@ -5,23 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "interview")
 public class Interview {
-// `interviewNumber` int NOT NULL AUTO_INCREMENT COMMENT 'AUTO_INCREMENT',
-//            `qualificationsNumber` int NOT NULL COMMENT 'AUTO_INCREMENT',
-//            `userId` varchar(255) NOT NULL,
-//  `interviewQuestion` varchar(255) DEFAULT NULL,
-//  `interviewAnswer` varchar(255) DEFAULT NULL,
 
     @Id
-    @Column(name = "interviewNumber")
+    @Column(name = "interviewnumber")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int interviewNumber;
-    @Column(name = "qualificationsNumber")
+    @Column(name = "qualificationsnumber")
     private int qualificationsNum;
     @Column(name = "userid")
     private String id;
-    @Column(name = "interviewQuestion")
+    @Column(name = "interviewquestion")
     private String interviewQuestion;
-    @Column(name = "interviewAnswer")
+    @Column(name = "interviewanswer")
     private String interviewAnswer;
 
     public Interview() {
