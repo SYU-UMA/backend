@@ -44,8 +44,21 @@ public class QualificationService {
         qualificationRepository.save(modelMapper.map(qual, Qualification.class));
     }
 
+    // 증명 수정
+    @Transactional
+    public void modifyQual(Qualification qualification) {
+        Qualification qual = qualificationRepository.findByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        qual.setLevel(qualification.getLevel());
+        qual.setCarrer(qualification.getCarrer());
+        qual.setJob(qualification.getJob());
+        qual.setRequirements(qualification.getRequirements());
+    }
+
+    // 증명 삭제
     @Transactional
     public void deleteQual(Qualification qualification) {
-        qualificationRepository.deleteQualificationByIdAndAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        qualificationRepository.deleteQualificationByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
     }
+
+
 }

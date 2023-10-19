@@ -30,7 +30,19 @@ public class QualificationController {
         return "추가완료";
     }
 
-    // 유저 증명 삭제
+    // 유저 증명 수정
+    @PostMapping("/modify")
+    public String QualModify(@RequestBody Qualification qualification) {
+        List<QualificationDTO> qualList = qualificationService.findqualById(qualification.getId());
+        if(qualList.size() == 0) {
+            return "수정 안됬어요";
+        }
+
+        qualificationService.modifyQual(qualification);
+        return "수정 완료";
+    }
+
+    // 유저 증명 삭제 인터뷰에 참고되어있을떈 삭제 불가, 수정 필요
     @DeleteMapping("/delete")
     public String QualDelete(@RequestBody Qualification qualification){
         qualificationService.deleteQual(qualification);
