@@ -2,7 +2,7 @@ package com.jobayour.dto;
 
 
 import java.io.Serializable;
-
+//수정
 public class InterviewDTO implements Serializable {
 
     private int interviewNumber;

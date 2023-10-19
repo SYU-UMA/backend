@@ -6,7 +6,7 @@ import com.jobayour.service.QualificationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//수정
 @RestController
 @RequestMapping(value = "/qualification")
 public class QualificationController {
