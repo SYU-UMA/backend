@@ -13,12 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetQualAndChatapiService {
 
+
     private final QualificationService qualificationService;
 
     private final ChatService chatService;      //chatgpt api통신을 위한 클래스
 
+
      public List<QuestionAndAnswerDTO> test(){
 
+         //db에서 id값을 통해 데이터를 가져오는 부분
          List<QualificationDTO> getData=qualificationService.findqualById("test");
 
          String combinedQuestions = "직무는 " + getData.get(0).getJob() + "이고 연차는 " + getData.get(0).getCarrer()
