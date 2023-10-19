@@ -26,11 +26,11 @@ public class InterviewService {
 
 
     // 인터뷰 리스트 조회
-    public List<InterviewDTO> findById(String id) {
-        Optional<Interview> interviewList = interviewRepository.findById(id);
+    public List<InterviewDTO> findInterviewById(String id) {
+        List<Interview> interviewList = interviewRepository.findInterviewById(id);
         List<InterviewDTO> list = interviewList.stream()
                 .sorted(Comparator.comparing(Interview::getQualificationsNum))
-                .map(Qualification -> modelMapper.map(interviewList, InterviewDTO.class))
+                .map(interview -> modelMapper.map(interview, InterviewDTO.class))
                 .collect(Collectors.toList());
         return list;
     }
@@ -49,6 +49,6 @@ public class InterviewService {
     // 인터뷰 삭제
     @Transactional
     public void deleteInterview(Interview interview) {
-        interviewRepository.deleteByIdAndInterviewNumber(interview.getId(), interview.getInterviewNumber());
+        interviewRepository.deleteByIdAndInterviewNumber(interview.getId(), interview.getInterviewNumber());;
     }
 }

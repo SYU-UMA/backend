@@ -20,7 +20,7 @@ public class InterviewController {
     // 인터뷰 리스트 조회
     @GetMapping("/list")
     public List<InterviewDTO> interviewList(@RequestParam String id){
-        List<InterviewDTO> interviewList = interviewService.findById(id);
+        List<InterviewDTO> interviewList = interviewService.findInterviewById(id);
         return interviewList;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +24,11 @@ public class QualificationService {
     }
 
     // 자격리스트 조회
-    public List<QualificationDTO> findByIdqual(String id) {
-        List<Qualification> qualList = qualificationRepository.findById(id);
+    public List<QualificationDTO> findqualById(String id) {
+        List<Qualification> qualList = qualificationRepository.findQualificationById(id);
         List<QualificationDTO> list = qualList.stream()
                 .sorted(Comparator.comparing(Qualification::getQualificationsNum))
-                .map(Qualification -> modelMapper.map(qualList, QualificationDTO.class))
+                .map(qualification -> modelMapper.map(qualification, QualificationDTO.class))
                 .collect(Collectors.toList());
         return list;
     }
@@ -43,8 +44,21 @@ public class QualificationService {
         qualificationRepository.save(modelMapper.map(qual, Qualification.class));
     }
 
+    // 증명 수정
+    @Transactional
+    public void modifyQual(Qualification qualification) {
+        Qualification qual = qualificationRepository.findByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        qual.setLevel(qualification.getLevel());
+        qual.setCarrer(qualification.getCarrer());
+        qual.setJob(qualification.getJob());
+        qual.setRequirements(qualification.getRequirements());
+    }
+
+    // 증명 삭제
     @Transactional
     public void deleteQual(Qualification qualification) {
-        qualificationRepository.deleteQualificationByIdAndAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        qualificationRepository.deleteQualificationByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
     }
+
+
 }
