@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Qualification {
 
     @Id
-    @Column(name = "qualificationsnumber")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "qualificationsnumber")
     private int qualificationsNum;
     @Column(name = "userid")
     private String id;

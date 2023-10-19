@@ -5,11 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "interview")
 public class Interview {
-// `interviewNumber` int NOT NULL AUTO_INCREMENT COMMENT 'AUTO_INCREMENT',
-//            `qualificationsNumber` int NOT NULL COMMENT 'AUTO_INCREMENT',
-//            `userId` varchar(255) NOT NULL,
-//  `interviewQuestion` varchar(255) DEFAULT NULL,
-//  `interviewAnswer` varchar(255) DEFAULT NULL,
 
     @Id
     @Column(name = "interviewnumber")
