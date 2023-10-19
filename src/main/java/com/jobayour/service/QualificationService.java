@@ -23,11 +23,11 @@ public class QualificationService {
     }
 
     // 자격리스트 조회
-    public List<QualificationDTO> findByIdqual(String id) {
-        List<Qualification> qualList = qualificationRepository.findById(id);
+    public List<QualificationDTO> findqualById(String id) {
+        List<Qualification> qualList = qualificationRepository.findQualificationById(id);
         List<QualificationDTO> list = qualList.stream()
                 .sorted(Comparator.comparing(Qualification::getQualificationsNum))
-                .map(Qualification -> modelMapper.map(qualList, QualificationDTO.class))
+                .map(qualification -> modelMapper.map(qualification, QualificationDTO.class))
                 .collect(Collectors.toList());
         return list;
     }

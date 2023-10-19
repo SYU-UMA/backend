@@ -20,6 +20,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 chatgpt:
   api-key: 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
   max-tokens: 3000

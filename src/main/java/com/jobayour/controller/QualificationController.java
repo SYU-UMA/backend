@@ -19,7 +19,7 @@ public class QualificationController {
     // 유저아이디로 증명조회
     @GetMapping("/list/{id}")
     public List<QualificationDTO> qualList(@PathVariable String id) {
-        List<QualificationDTO> qualList = qualificationService.findByIdqual(id);
+        List<QualificationDTO> qualList = qualificationService.findqualById(id);
         return qualList;
     }
 

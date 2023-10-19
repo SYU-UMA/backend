@@ -7,7 +7,6 @@ public class QuestionsDTO {
 
     private List<String> questions;
 
-
     private String job;       //직무
     private String career;       //연차
     private String level;       //난이도       1~5, 1이 가장 어려운 질문

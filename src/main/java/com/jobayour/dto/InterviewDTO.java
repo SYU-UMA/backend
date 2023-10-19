@@ -5,11 +5,11 @@ import java.io.Serializable;
 
 public class InterviewDTO implements Serializable {
 
-    private int interviewNumber;
-    private int qualificationsNum;
-    private String id;
-    private String interviewQuestion;
-    private String interviewAnswer;
+    private int interviewNumber;    //인터뷰번호 auto
+    private int qualificationsNum;  //자격번호
+    private String id;              //아이디
+    private String interviewQuestion;   // 질문
+    private String interviewAnswer;     // 답변
 
     public InterviewDTO() {
     }

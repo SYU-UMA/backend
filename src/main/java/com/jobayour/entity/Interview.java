@@ -12,16 +12,16 @@ public class Interview {
 //  `interviewAnswer` varchar(255) DEFAULT NULL,
 
     @Id
-    @Column(name = "interviewNumber")
+    @Column(name = "interviewnumber")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int interviewNumber;
-    @Column(name = "qualificationsNumber")
+    @Column(name = "qualificationsnumber")
     private int qualificationsNum;
     @Column(name = "userid")
     private String id;
-    @Column(name = "interviewQuestion")
+    @Column(name = "interviewquestion")
     private String interviewQuestion;
-    @Column(name = "interviewAnswer")
+    @Column(name = "interviewanswer")
     private String interviewAnswer;
 
     public Interview() {
