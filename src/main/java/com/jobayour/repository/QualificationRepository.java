@@ -1,5 +1,5 @@
 package com.jobayour.repository;
-
+//수정
 import com.jobayour.entity.Qualification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
