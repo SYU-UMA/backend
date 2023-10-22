@@ -22,6 +22,14 @@ public class InterviewDTO implements Serializable {
         this.interviewAnswer = interviewAnswer;
     }
 
+
+    public InterviewDTO(int qualificationsNum, String id, String interviewQuestion, String interviewAnswer) {
+        this.qualificationsNum = qualificationsNum;
+        this.id = id;
+        this.interviewQuestion = interviewQuestion;
+        this.interviewAnswer = interviewAnswer;
+    }
+
     public int getInterviewNumber() {
         return interviewNumber;
     }
