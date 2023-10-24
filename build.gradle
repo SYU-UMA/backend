@@ -31,8 +31,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
 
+
     // 엔티티에 저장된 값들을 dto에 간단하게 넘겨줄 수 있게 도와주는 라이브러리
     implementation 'org.modelmapper:modelmapper:3.1.1'
+
 }
 
 
