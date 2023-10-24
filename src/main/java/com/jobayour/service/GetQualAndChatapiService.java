@@ -23,7 +23,7 @@ public class GetQualAndChatapiService {
 
      public List<QuestionAndAnswerDTO> test(){
 
-         //db에서 id값을 통해 데이터를 가져오는 부분
+         //db에서 id값을 통해 데이터를 가져오는 부분,수정해야함
          List<QualificationDTO> getData=qualificationService.findqualById("test");
 
          String combinedQuestions = "직무는 " + getData.get(0).getJob() + "이고 연차는 " + getData.get(0).getCarrer()
