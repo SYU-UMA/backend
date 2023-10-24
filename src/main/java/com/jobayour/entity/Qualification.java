@@ -14,8 +14,8 @@ public class Qualification {
     private String id;
     @Column(name = "job")
     private String job;
-    @Column(name = "carrer")
-    private String carrer;
+    @Column(name = "career")
+    private String career;
     @Column(name = "level")
     private String level;
     @Column(name = "requirements")
@@ -24,11 +24,11 @@ public class Qualification {
     public Qualification() {
     }
 
-    public Qualification(int qualificationsNum, String id, String job, String carrer, String level, String requirements) {
+    public Qualification(int qualificationsNum, String id, String job, String career, String level, String requirements) {
         this.qualificationsNum = qualificationsNum;
         this.id = id;
         this.job = job;
-        this.carrer = carrer;
+        this.career = career;
         this.level = level;
         this.requirements = requirements;
     }
@@ -57,12 +57,12 @@ public class Qualification {
         this.job = job;
     }
 
-    public String getCarrer() {
-        return carrer;
+    public String getCareer() {
+        return career;
     }
 
-    public void setCarrer(String carrer) {
-        this.carrer = carrer;
+    public void setCareer(String carrer) {
+        this.career = carrer;
     }
 
     public String getLevel() {
@@ -87,7 +87,7 @@ public class Qualification {
                 "qualificationsNum=" + qualificationsNum +
                 ", id='" + id + '\'' +
                 ", job='" + job + '\'' +
-                ", carrer='" + carrer + '\'' +
+                ", career='" + career + '\'' +
                 ", level='" + level + '\'' +
                 ", requirements='" + requirements + '\'' +
                 '}';

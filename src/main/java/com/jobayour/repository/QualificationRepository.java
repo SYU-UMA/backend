@@ -18,4 +18,6 @@ public interface QualificationRepository extends JpaRepository<Qualification, St
 
     // 유저의 qual 삭제
     void deleteQualificationByIdAndQualificationsNum(String id, int qualificationsnum);
+
+    Qualification findTopByIdOrderByQualificationsNumDesc(String id);
 }

@@ -7,18 +7,18 @@ public class QualificationDTO implements Serializable {
     private int qualificationsNum;
     private String id;
     private String job;
-    private String carrer;
+    private String career;
     private String level;
     private String requirements;
 
     public QualificationDTO() {
     }
 
-    public QualificationDTO(int qualificationsNum, String id, String job, String carrer, String level, String requirements) {
+    public QualificationDTO(int qualificationsNum, String id, String job, String career, String level, String requirements) {
         this.qualificationsNum = qualificationsNum;
         this.id = id;
         this.job = job;
-        this.carrer = carrer;
+        this.career = career;
         this.level = level;
         this.requirements = requirements;
     }
@@ -47,12 +47,12 @@ public class QualificationDTO implements Serializable {
         this.job = job;
     }
 
-    public String getCarrer() {
-        return carrer;
+    public String getCareer() {
+        return career;
     }
 
-    public void setCarrer(String carrer) {
-        this.carrer = carrer;
+    public void setCareer(String career) {
+        this.career = career;
     }
 
     public String getLevel() {
@@ -77,7 +77,7 @@ public class QualificationDTO implements Serializable {
                 "qualificationsNum=" + qualificationsNum +
                 ", id='" + id + '\'' +
                 ", job='" + job + '\'' +
-                ", carrer='" + carrer + '\'' +
+                ", career='" + career + '\'' +
                 ", level='" + level + '\'' +
                 ", requirements='" + requirements + '\'' +
                 '}';
