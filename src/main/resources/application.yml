@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/springdb
     username: root
-    password: 5287
+    password: 1234
 
 
 
@@ -22,3 +22,5 @@ spring:
 
 chatgpt:
   api-key: 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
+server:
+  port: 8001
