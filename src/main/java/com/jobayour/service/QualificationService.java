@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 //수정
 @Service
@@ -37,7 +36,7 @@ public class QualificationService {
     public void addQual(Qualification qualification) {
         Qualification qual = new Qualification();
         qual.setId(qualification.getId());
-        qual.setCarrer(qualification.getCarrer());
+        qual.setCareer(qualification.getCareer());
         qual.setJob(qualification.getJob());
         qual.setLevel(qualification.getLevel());
         qual.setRequirements(qualification.getRequirements());
@@ -49,7 +48,7 @@ public class QualificationService {
     public void modifyQual(Qualification qualification) {
         Qualification qual = qualificationRepository.findByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
         qual.setLevel(qualification.getLevel());
-        qual.setCarrer(qualification.getCarrer());
+        qual.setCareer(qualification.getCareer());
         qual.setJob(qualification.getJob());
         qual.setRequirements(qualification.getRequirements());
     }
@@ -61,4 +60,9 @@ public class QualificationService {
     }
 
 
+    public int findTopByIdOrderByQualificationsNumDesc(String id) {
+        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(id);
+        int qualNumber = qual.getQualificationsNum();
+        return qualNumber;
+    }
 }

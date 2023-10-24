@@ -2,7 +2,9 @@ package com.jobayour.service;
 
 import com.jobayour.dto.InterviewDTO;
 import com.jobayour.entity.Interview;
+import com.jobayour.entity.Qualification;
 import com.jobayour.repository.InterviewRepository;
+import com.jobayour.repository.QualificationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
 public class InterviewService {
 
     private InterviewRepository interviewRepository;
+    private QualificationRepository qualificationRepository;
 
     private final ModelMapper modelMapper;
 
-    public InterviewService(InterviewRepository interviewRepository, ModelMapper modelMapper) {
+    public InterviewService(InterviewRepository interviewRepository, QualificationRepository qualificationRepository,ModelMapper modelMapper) {
         this.interviewRepository = interviewRepository;
+        this.qualificationRepository = qualificationRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -41,7 +45,9 @@ public class InterviewService {
         interview1.setId(interview.getId());
         interview1.setInterviewAnswer(interview.getInterviewAnswer());
         interview1.setInterviewQuestion(interview.getInterviewQuestion());
-        interview1.setQualificationsNum(interview.getQualificationsNum());
+        // 아이디에 맞는 최근 qualificationsNumber 세팅
+        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(interview.getId());
+        interview1.setQualificationsNum(qual.getQualificationsNum());
         interviewRepository.save(modelMapper.map(interview1, Interview.class));
     }
 
