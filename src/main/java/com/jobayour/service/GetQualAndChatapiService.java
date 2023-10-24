@@ -1,8 +1,9 @@
 package com.jobayour.service;
 
+import com.jobayour.dto.InterviewDTO;
 import com.jobayour.dto.QualificationDTO;
 import com.jobayour.dto.QuestionAndAnswerDTO;
-import com.jobayour.dto.QuestionsDTO;
+import com.jobayour.entity.Interview;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetQualAndChatapiService {
 
-    private final QualificationService qualificationService;
+    private final InterviewService interviewService;    //db저장을 위한 의존성 주입
+
+    private final QualificationService qualificationService;    //db조회를 위한 위존성 주입
 
     private final ChatService chatService;      //chatgpt api통신을 위한 클래스
 
+
      public List<QuestionAndAnswerDTO> test(){
 
+         //db에서 id값을 통해 데이터를 가져오는 부분
          List<QualificationDTO> getData=qualificationService.findqualById("test");
 
          String combinedQuestions = "직무는 " + getData.get(0).getJob() + "이고 연차는 " + getData.get(0).getCarrer()
@@ -29,6 +34,7 @@ public class GetQualAndChatapiService {
                  "이런식으로 예상질문마다 뒤에는 꼭 ? 로 끝나게해줘 한글로알려줘";
 
 
+         //챗gpt서비스에 질문하고 리턴받기
          String response = chatService.getChatResponse(combinedQuestions);
 
          List<QuestionAndAnswerDTO> interviewQuestions = new ArrayList<>();
@@ -47,8 +53,31 @@ public class GetQualAndChatapiService {
              }
          }
 
-         return interviewQuestions;
 
+         //db에 다시 질문과 답변을 저장하는 로직 (일단은 하드코딩으로 작성)
+//         Interview interview0 = new Interview(getData.get(0).getQualificationsNum()
+//                 ,"test",interviewQuestions.get(0).getQuestion(),interviewQuestions.get(0).getAnswer());
+//
+//         interviewService.addInterview(interview0);
+
+        for(int i = 0;i<5;i++){
+            Interview interview = new Interview(getData.get(0).getQualificationsNum()
+                    ,"test",interviewQuestions.get(i).getQuestion(),interviewQuestions.get(i).getAnswer());
+
+            interviewService.addInterview(interview);
+        }
+
+
+
+
+
+
+
+
+
+
+         //컨트롤러에 질문답변 객체 전달
+         return interviewQuestions;
 
      }
 
