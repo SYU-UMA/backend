@@ -22,7 +22,7 @@ spring:
         format_sql: true
 
 chatgpt:
-  api-key: 
+  api-key: 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
   max-tokens: 3000
 
 

@@ -46,8 +46,9 @@ public class InterviewService {
         interview1.setInterviewAnswer(interview.getInterviewAnswer());
         interview1.setInterviewQuestion(interview.getInterviewQuestion());
         // 아이디에 맞는 최근 qualificationsNumber 세팅
-        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(interview.getId());
-        interview1.setQualificationsNum(qual.getQualificationsNum());
+//        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(interview.getId());
+//        interview1.setQualificationsNum(qual.getQualificationsNum());
+        interview1.setQualificationsNum(interview.getQualificationsNum());
         interviewRepository.save(modelMapper.map(interview1, Interview.class));
     }
 

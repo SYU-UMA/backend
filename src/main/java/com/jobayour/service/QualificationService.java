@@ -60,9 +60,9 @@ public class QualificationService {
     }
 
 
-    public int findTopByIdOrderByQualificationsNumDesc(String id) {
+    public Qualification findTopByIdOrderByQualificationsNumDesc(String id) {
         Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(id);
-        int qualNumber = qual.getQualificationsNum();
-        return qualNumber;
+//        int qualNumber = qual.getQualificationsNum();
+        return qual;
     }
 }
