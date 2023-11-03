@@ -1,0 +1,32 @@
+
+# DB config ??
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb
+    username: root
+    password: 5287
+  profiles:
+    include: API-KEY
+
+
+
+  #JPA config
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+
+chatgpt:
+  api-key: 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
+  max-tokens: 3000
+
+
+
+
+
+

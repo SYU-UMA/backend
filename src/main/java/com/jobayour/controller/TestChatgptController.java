@@ -29,9 +29,6 @@ public class TestChatgptController {
 
         List<QuestionAndAnswerDTO> interviewQuestions  = getQualAndChatapiService.test();
 
-        //db에 질문과 객체 다시 저장하는 코드 삽입 할 부분 -> 이거도 서비스에서 처리
-
-
 
         return ResponseEntity.ok(interviewQuestions);
     }
