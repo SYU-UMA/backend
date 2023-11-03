@@ -22,11 +22,11 @@ public class QualificationController {
             List<QualificationDTO> qualList = qualificationService.findqualById(id);
             return qualList;
     }
-    // 최근 증명 qualNum 조회
+    // 최근 증명 qual 조회
     @GetMapping("/qualnum/{id}")
-    public int qualNum(@PathVariable String id) {
-        int qualNumber = qualificationService.findTopByIdOrderByQualificationsNumDesc(id);
-        return qualNumber;
+    public Qualification qualNum(@PathVariable String id) {
+        Qualification qual = qualificationService.findTopByIdOrderByQualificationsNumDesc(id);
+        return qual;
     }
 
     // 유저 증명 추가
