@@ -21,11 +21,9 @@ public class GetQualAndChatapiService {
     private final ChatService chatService;      //chatgpt api통신을 위한 클래스
 
 
-     public List<QuestionAndAnswerDTO> test(){
+     public void test(){
 
          //db에서 id값을 통해 데이터를 가져오는 부분,수정해야함
-
-//         List<QualificationDTO> getData=qualificationService.findqualById("test");
 
          Qualification getData = qualificationService.findTopByIdOrderByQualificationsNumDesc("test");
 
@@ -57,33 +55,20 @@ public class GetQualAndChatapiService {
          }
 
 
-         //db에 다시 질문과 답변을 저장하는 로직 (일단은 하드코딩으로 작성)
-//         Interview interview0 = new Interview(getData.get(0).getQualificationsNum()
-//                 ,"test",interviewQuestions.get(0).getQuestion(),interviewQuestions.get(0).getAnswer());
-//
-//         interviewService.addInterview(interview0);
 
         for(int i = 0;i<5;i++){
 
-            Interview interview = new Interview(getData.get(0).getQualificationsNumber()
+            Interview interview = new Interview(getData.getQualificationsNumber()
                     ,"test",interviewQuestions.get(i).getQuestion(),interviewQuestions.get(i).getAnswer());
 
             interviewService.addInterview(interview);
         }
 
 
+         //컨트롤러에 질문답변 객체 전달, 기존의 List<QuestionAndAnswerDTO> 으로 리턴 할 때의 코드, 리턴값 없어서 삭제
+//         return interviewQuestions;
 
-
-
-
-
-         //컨트롤러에 질문답변 객체 전달
-         return interviewQuestions;
 
      }
-
-
-
-
 
 }

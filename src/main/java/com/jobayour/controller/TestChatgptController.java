@@ -26,10 +26,10 @@ public class TestChatgptController {
     @PostMapping
     public void test(){
 
+//        기존의 List<QuestionAndAnswerDTO> 으로 리턴할 때의 코드
+//        List<QuestionAndAnswerDTO> interviewQuestions  = getQualAndChatapiService.test();
 
-        List<QuestionAndAnswerDTO> interviewQuestions  = getQualAndChatapiService.test();
-
-        //db에 질문과 객체 다시 저장하는 코드 삽입 할 부분 -> 이거도 서비스에서 처리
+        getQualAndChatapiService.test();
 
     }
 
