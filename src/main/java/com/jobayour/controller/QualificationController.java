@@ -22,6 +22,7 @@ public class QualificationController {
             List<QualificationDTO> qualList = qualificationService.findqualById(id);
             return qualList;
     }
+
     // 최근 증명 qual 조회
     @GetMapping("/qualnum/{id}")
     public Qualification qualNum(@PathVariable String id) {
