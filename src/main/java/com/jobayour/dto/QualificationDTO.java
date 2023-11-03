@@ -4,8 +4,8 @@ import java.io.Serializable;
 //수정
 public class QualificationDTO implements Serializable {
 
-    private int qualificationsNum;
-    private String id;
+    private int qualificationsNumber;
+    private String userId;
     private String job;
     private String career;
     private String level;
@@ -14,29 +14,29 @@ public class QualificationDTO implements Serializable {
     public QualificationDTO() {
     }
 
-    public QualificationDTO(int qualificationsNum, String id, String job, String career, String level, String requirements) {
-        this.qualificationsNum = qualificationsNum;
-        this.id = id;
+    public QualificationDTO(int qualificationsNumber, String userId, String job, String career, String level, String requirements) {
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
         this.job = job;
         this.career = career;
         this.level = level;
         this.requirements = requirements;
     }
 
-    public int getQualificationsNum() {
-        return qualificationsNum;
+    public int getQualificationsNumber() {
+        return qualificationsNumber;
     }
 
-    public void setQualificationsNum(int qualificationsNum) {
-        this.qualificationsNum = qualificationsNum;
+    public void setQualificationsNumber(int qualificationsNumber) {
+        this.qualificationsNumber = qualificationsNumber;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getJob() {
@@ -74,8 +74,8 @@ public class QualificationDTO implements Serializable {
     @Override
     public String toString() {
         return "QualificationDTO{" +
-                "qualificationsNum=" + qualificationsNum +
-                ", id='" + id + '\'' +
+                "qualificationsNumber=" + qualificationsNumber +
+                ", userId='" + userId + '\'' +
                 ", job='" + job + '\'' +
                 ", career='" + career + '\'' +
                 ", level='" + level + '\'' +

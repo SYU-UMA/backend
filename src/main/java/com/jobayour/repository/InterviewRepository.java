@@ -10,7 +10,9 @@ import java.util.Optional;
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview, String> {
 
-    List<Interview> findInterviewById(String id);
+    List<Interview> findInterviewByUserId(String id);
 
-    void deleteByIdAndInterviewNumber(String id, int interviewNumber);
+    List<Interview> findTop5ByUserIdOrderByInterviewNumberDesc(String id);
+
+    void deleteByUserIdAndInterviewNumber(String id, int interviewNumber);
 }

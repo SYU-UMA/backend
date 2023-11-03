@@ -39,7 +39,7 @@ public class QualificationController {
     // 유저 증명 수정
     @PostMapping("/modify")
     public String QualModify(@RequestBody Qualification qualification) {
-        List<QualificationDTO> qualList = qualificationService.findqualById(qualification.getId());
+        List<QualificationDTO> qualList = qualificationService.findqualById(qualification.getUserId());
         if(qualList.size() == 0) {
             return "수정 안됬어요";
         }

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 //수정
 @Service
@@ -30,24 +29,33 @@ public class InterviewService {
 
 
     // 인터뷰 리스트 조회
-    public List<InterviewDTO> findInterviewById(String id) {
-        List<Interview> interviewList = interviewRepository.findInterviewById(id);
+    public List<InterviewDTO> findInterviewByUserId(String id) {
+        List<Interview> interviewList = interviewRepository.findInterviewByUserId(id);
         List<InterviewDTO> list = interviewList.stream()
-                .sorted(Comparator.comparing(Interview::getQualificationsNum))
+                .sorted(Comparator.comparing(Interview::getQualificationsNumber))
                 .map(interview -> modelMapper.map(interview, InterviewDTO.class))
                 .collect(Collectors.toList());
         return list;
     }
 
+    // 인터뷰 최근 5개 조회
+    public List<InterviewDTO> findTop5ByUserIdOrderByInterviewNumberDesc(String id) {
+        List<Interview> interviewList = interviewRepository.findTop5ByUserIdOrderByInterviewNumberDesc(id);
+        List<InterviewDTO> list = interviewList.stream()
+                .sorted(Comparator.comparing(Interview::getQualificationsNumber))
+                .map(interview -> modelMapper.map(interview, InterviewDTO.class))
+                .collect(Collectors.toList());
+        return list;
+    }
     // 인터뷰 추가
     public void addInterview(Interview interview) {
         Interview interview1 = new Interview();
-        interview1.setId(interview.getId());
+        interview1.setUserId(interview.getUserId());
         interview1.setInterviewAnswer(interview.getInterviewAnswer());
         interview1.setInterviewQuestion(interview.getInterviewQuestion());
         // 아이디에 맞는 최근 qualificationsNumber 세팅
-        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(interview.getId());
-        interview1.setQualificationsNum(qual.getQualificationsNum());
+        Qualification qual = qualificationRepository.findTopByUserIdOrderByQualificationsNumberDesc(interview.getUserId());
+        interview1.setQualificationsNumber(qual.getQualificationsNumber());
         interviewRepository.save(modelMapper.map(interview1, Interview.class));
     }
 
@@ -55,6 +63,8 @@ public class InterviewService {
     // 인터뷰 삭제
     @Transactional
     public void deleteInterview(Interview interview) {
-        interviewRepository.deleteByIdAndInterviewNumber(interview.getId(), interview.getInterviewNumber());;
+        interviewRepository.deleteByUserIdAndInterviewNumber(interview.getUserId(), interview.getInterviewNumber());;
     }
+
+
 }
