@@ -12,12 +12,12 @@ public interface QualificationRepository extends JpaRepository<Qualification, St
 
     // 유저의 qual 리스트
     //@Query("select q from Qualification q where q.id = ?1")
-    List<Qualification> findQualificationById(String id);
+    List<Qualification> findQualificationByUserId(String id);
 
-    Qualification findByIdAndQualificationsNum(String id, int qualificationsnum);
+    Qualification findByUserIdAndQualificationsNumber(String id, int qualificationsnum);
 
     // 유저의 qual 삭제
-    void deleteQualificationByIdAndQualificationsNum(String id, int qualificationsnum);
+    void deleteQualificationByUserIdAndQualificationsNumber(String id, int qualificationsnum);
 
-    Qualification findTopByIdOrderByQualificationsNumDesc(String id);
+    Qualification findTopByUserIdOrderByQualificationsNumberDesc(String id);
 }

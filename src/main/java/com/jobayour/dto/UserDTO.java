@@ -4,38 +4,38 @@ import java.io.Serializable;
 //수정
 public class UserDTO implements Serializable {
 
-    private String id;
-    private String pwd;
+    private String userId;
+    private String userPwd;
 
     public UserDTO() {
     }
 
-    public UserDTO(String id, String pwd) {
-        this.id = id;
-        this.pwd = pwd;
+    public UserDTO(String userId, String userPwd) {
+        this.userId = userId;
+        this.userPwd = userPwd;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     @Override
     public String toString() {
         return "UserDTO{" +
-                "id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
+                "userId='" + userId + '\'' +
+                ", userPwd='" + userPwd + '\'' +
                 '}';
     }
 }

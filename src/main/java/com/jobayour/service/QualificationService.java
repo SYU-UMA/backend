@@ -24,9 +24,9 @@ public class QualificationService {
 
     // 자격리스트 조회
     public List<QualificationDTO> findqualById(String id) {
-        List<Qualification> qualList = qualificationRepository.findQualificationById(id);
+        List<Qualification> qualList = qualificationRepository.findQualificationByUserId(id);
         List<QualificationDTO> list = qualList.stream()
-                .sorted(Comparator.comparing(Qualification::getQualificationsNum))
+                .sorted(Comparator.comparing(Qualification::getQualificationsNumber))
                 .map(qualification -> modelMapper.map(qualification, QualificationDTO.class))
                 .collect(Collectors.toList());
         return list;
@@ -35,7 +35,7 @@ public class QualificationService {
     // 증명 추가
     public void addQual(Qualification qualification) {
         Qualification qual = new Qualification();
-        qual.setId(qualification.getId());
+        qual.setUserId(qualification.getUserId());
         qual.setCareer(qualification.getCareer());
         qual.setJob(qualification.getJob());
         qual.setLevel(qualification.getLevel());
@@ -46,7 +46,7 @@ public class QualificationService {
     // 증명 수정
     @Transactional
     public void modifyQual(Qualification qualification) {
-        Qualification qual = qualificationRepository.findByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        Qualification qual = qualificationRepository.findByUserIdAndQualificationsNumber(qualification.getUserId(), qualification.getQualificationsNumber());
         qual.setLevel(qualification.getLevel());
         qual.setCareer(qualification.getCareer());
         qual.setJob(qualification.getJob());
@@ -56,13 +56,13 @@ public class QualificationService {
     // 증명 삭제
     @Transactional
     public void deleteQual(Qualification qualification) {
-        qualificationRepository.deleteQualificationByIdAndQualificationsNum(qualification.getId(), qualification.getQualificationsNum());
+        qualificationRepository.deleteQualificationByUserIdAndQualificationsNumber(qualification.getUserId(), qualification.getQualificationsNumber());
     }
 
 
     public Qualification findTopByIdOrderByQualificationsNumDesc(String id) {
-        Qualification qual = qualificationRepository.findTopByIdOrderByQualificationsNumDesc(id);
-//        int qualNumber = qual.getQualificationsNum();
+        Qualification qual = qualificationRepository.findTopByUserIdOrderByQualificationsNumberDesc(id);
+        //int qualNumber = qual.getQualificationsNumber();
         return qual;
     }
 }

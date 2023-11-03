@@ -11,9 +11,9 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int interviewNumber;
     @Column(name = "qualificationsnumber")
-    private int qualificationsNum;
+    private int qualificationsNumber;
     @Column(name = "userid")
-    private String id;
+    private String userId;
     @Column(name = "interviewquestion")
     private String interviewQuestion;
     @Column(name = "interviewanswer")
@@ -22,17 +22,17 @@ public class Interview {
     public Interview() {
     }
 
-    public Interview(int interviewNumber, int qualificationsNum, String id, String interviewQuestion, String interviewAnswer) {
+    public Interview(int interviewNumber, int qualificationsNumber, String userId, String interviewQuestion, String interviewAnswer) {
         this.interviewNumber = interviewNumber;
-        this.qualificationsNum = qualificationsNum;
-        this.id = id;
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }
 
-    public Interview(int qualificationsNum, String id, String interviewQuestion, String interviewAnswer) {
-        this.qualificationsNum = qualificationsNum;
-        this.id = id;
+    public Interview(int qualificationsNumber, String userId, String interviewQuestion, String interviewAnswer) {
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }
@@ -45,20 +45,20 @@ public class Interview {
         this.interviewNumber = interviewNumber;
     }
 
-    public int getQualificationsNum() {
-        return qualificationsNum;
+    public int getQualificationsNumber() {
+        return qualificationsNumber;
     }
 
-    public void setQualificationsNum(int qualificationsNum) {
-        this.qualificationsNum = qualificationsNum;
+    public void setQualificationsNumber(int qualificationsNumber) {
+        this.qualificationsNumber = qualificationsNumber;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getInterviewQuestion() {
@@ -81,8 +81,8 @@ public class Interview {
     public String toString() {
         return "Interview{" +
                 "interviewNumber=" + interviewNumber +
-                ", qualificationsNum=" + qualificationsNum +
-                ", id='" + id + '\'' +
+                ", qualificationsNumber=" + qualificationsNumber +
+                ", userId='" + userId + '\'' +
                 ", interviewQuestion='" + interviewQuestion + '\'' +
                 ", interviewAnswer='" + interviewAnswer + '\'' +
                 '}';
