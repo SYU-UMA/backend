@@ -9,9 +9,9 @@ public class Qualification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qualificationsnumber")
-    private int qualificationsNum;
+    private int qualificationsNumber;
     @Column(name = "userid")
-    private String id;
+    private String userId;
     @Column(name = "job")
     private String job;
     @Column(name = "career")
@@ -24,29 +24,29 @@ public class Qualification {
     public Qualification() {
     }
 
-    public Qualification(int qualificationsNum, String id, String job, String career, String level, String requirements) {
-        this.qualificationsNum = qualificationsNum;
-        this.id = id;
+    public Qualification(int qualificationsNumber, String userId, String job, String career, String level, String requirements) {
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
         this.job = job;
         this.career = career;
         this.level = level;
         this.requirements = requirements;
     }
 
-    public int getQualificationsNum() {
-        return qualificationsNum;
+    public int getQualificationsNumber() {
+        return qualificationsNumber;
     }
 
-    public void setQualificationsNum(int qualificationsNum) {
-        this.qualificationsNum = qualificationsNum;
+    public void setQualificationsNumber(int qualificationsNumber) {
+        this.qualificationsNumber = qualificationsNumber;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getJob() {
@@ -84,8 +84,8 @@ public class Qualification {
     @Override
     public String toString() {
         return "Qualification{" +
-                "qualificationsNum=" + qualificationsNum +
-                ", id='" + id + '\'' +
+                "qualificationsNumber=" + qualificationsNumber +
+                ", userId='" + userId + '\'' +
                 ", job='" + job + '\'' +
                 ", career='" + career + '\'' +
                 ", level='" + level + '\'' +

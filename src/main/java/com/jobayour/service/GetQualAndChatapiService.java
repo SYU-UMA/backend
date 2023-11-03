@@ -64,7 +64,8 @@ public class GetQualAndChatapiService {
 //         interviewService.addInterview(interview0);
 
         for(int i = 0;i<5;i++){
-            Interview interview = new Interview(getData.getQualificationsNum()
+
+            Interview interview = new Interview(getData.get(0).getQualificationsNumber()
                     ,"test",interviewQuestions.get(i).getQuestion(),interviewQuestions.get(i).getAnswer());
 
             interviewService.addInterview(interview);

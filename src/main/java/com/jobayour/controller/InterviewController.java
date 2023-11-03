@@ -21,7 +21,14 @@ public class InterviewController {
     // 인터뷰 리스트 조회
     @GetMapping("/list")
     public List<InterviewDTO> interviewList(@RequestParam String id){
-        List<InterviewDTO> interviewList = interviewService.findInterviewById(id);
+        List<InterviewDTO> interviewList = interviewService.findInterviewByUserId(id);
+        return interviewList;
+    }
+
+    // 최근 인터뷰 5개 리스트 조회
+    @GetMapping("/recentlist")
+    public List<InterviewDTO> recentinterviewList(@RequestParam String id){
+        List<InterviewDTO> interviewList = interviewService.findTop5ByUserIdOrderByInterviewNumberDesc(id);
         return interviewList;
     }
 

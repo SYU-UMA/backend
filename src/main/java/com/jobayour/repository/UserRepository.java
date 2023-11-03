@@ -10,5 +10,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
 
     //@Query("select u from User u where u.id = ?1 ")
-    List<User> findUserById(String id);
+    List<User> findUserByUserId(String id);
 }

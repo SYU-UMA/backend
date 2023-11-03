@@ -22,7 +22,8 @@ public class QualificationController {
             List<QualificationDTO> qualList = qualificationService.findqualById(id);
             return qualList;
     }
-    // 최근 증명 qualNum 조회해서 투플 아예 가져오기
+
+    // 최근 증명 qual 조회
     @GetMapping("/qualnum/{id}")
     public Qualification qualNum(@PathVariable String id) {
         Qualification qual = qualificationService.findTopByIdOrderByQualificationsNumDesc(id);
@@ -39,7 +40,7 @@ public class QualificationController {
     // 유저 증명 수정
     @PostMapping("/modify")
     public String QualModify(@RequestBody Qualification qualification) {
-        List<QualificationDTO> qualList = qualificationService.findqualById(qualification.getId());
+        List<QualificationDTO> qualList = qualificationService.findqualById(qualification.getUserId());
         if(qualList.size() == 0) {
             return "수정 안됬어요";
         }

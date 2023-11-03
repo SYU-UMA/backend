@@ -24,13 +24,13 @@ public class TestChatgptController {
 
     //db에서 저장한 데이터를 통해 chatgpt에 검색해서 리턴받는 메소드(
     @PostMapping
-    public ResponseEntity<List<QuestionAndAnswerDTO>> test(){
+    public void test(){
 
 
         List<QuestionAndAnswerDTO> interviewQuestions  = getQualAndChatapiService.test();
 
+        //db에 질문과 객체 다시 저장하는 코드 삽입 할 부분 -> 이거도 서비스에서 처리
 
-        return ResponseEntity.ok(interviewQuestions);
     }
 
 }
