@@ -54,15 +54,29 @@ public class GetQualAndChatapiService {
              }
          }
 
+         // list객체가 총 5개이고 각각의 값이 비어있는지 확인, 아니면 다시 메소드 실행
+         // interviewQuestions 리스트의 크기가 5개이고, 각 객체의 question과 answer가 비어 있지 않은지 확인
+         if (interviewQuestions.size() == 5 && interviewQuestions.stream().allMatch(qa -> !qa.getQuestion().isEmpty() && !qa.getAnswer().isEmpty())) {
 
-
-        for(int i = 0;i<5;i++){
+             for(int i = 0;i< interviewQuestions.size();i++){
 
             Interview interview = new Interview(getData.getQualificationsNumber()
                     ,"test",interviewQuestions.get(i).getQuestion(),interviewQuestions.get(i).getAnswer());
 
             interviewService.addInterview(interview);
-        }
+          }
+         } else {
+             test();
+         }
+
+//         //기존의 db저장 코드
+//        for(int i = 0;i< interviewQuestions.size();i++){
+//
+//            Interview interview = new Interview(getData.getQualificationsNumber()
+//                    ,"test",interviewQuestions.get(i).getQuestion(),interviewQuestions.get(i).getAnswer());
+//
+//            interviewService.addInterview(interview);
+//        }
 
 
          //컨트롤러에 질문답변 객체 전달, 기존의 List<QuestionAndAnswerDTO> 으로 리턴 할 때의 코드, 리턴값 없어서 삭제
