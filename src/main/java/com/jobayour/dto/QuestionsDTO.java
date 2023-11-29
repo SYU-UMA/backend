@@ -5,7 +5,7 @@ import java.util.List;
 
 public class QuestionsDTO {
 
-    private List<String> questions;
+
 
     private String job;       //직무
     private String career;       //연차
