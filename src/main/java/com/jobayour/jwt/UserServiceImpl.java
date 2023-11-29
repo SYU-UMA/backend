@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements JwtUserService {
 
-    private final UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -30,7 +30,7 @@ public class UserServiceImpl implements JwtUserService {
 
     @Override
     public String loginUser(User user) {
-        UserDetails userDetails = loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
         if (!userDetails.getPassword().equals(user.getUserPwd())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
@@ -38,17 +38,7 @@ public class UserServiceImpl implements JwtUserService {
         return jwtTokenProvider.createToken(userDetails.getUsername(), Collections.emptyList());
     }
 
-    private UserDetails loadUserByUsername(String username) {
-        List<User> userList = userRepository.findUserByUserId(username);
 
-        User user = userList.stream()
-                .findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException(username));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserId(),
-                user.getUserPwd(),
-                Collections.emptyList()
-        );
-    }
+
 }
