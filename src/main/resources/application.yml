@@ -5,10 +5,11 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springdb
+    url: jdbc:mysql://jobayour-mysql.c89wgceeabum.ap-northeast-2.rds.amazonaws.com:3306/jobayour_db
     username: root
-    password: 5287
-
+    password: ansungmin492!
+  profiles:
+    include: API-KEY
 
 
   #JPA config
