@@ -31,7 +31,7 @@ public class UserController {
 
     // 유저 추가 핸들러 메소드
     @PostMapping("/add")
-    public String UserAdd(@RequestBody UserDTO.User user){
+    public String UserAdd(@RequestBody User user){
         List<UserDTO> userList = userService.findUserById(user.getUserId());
         if(userList.size() > 0){
             return "문제가있어요"; // if조건에 맞으면 돌아가는 출력
@@ -42,7 +42,7 @@ public class UserController {
 
     // 유저 비밀번호 수정 핸들러 메소드
     @PostMapping("/modify")
-    public String UserModfiy(@RequestBody UserDTO.User user){
+    public String UserModfiy(@RequestBody User user){
         List<UserDTO> userList = userService.findUserById(user.getUserId());
         if(userList.size() == 0) {
             return "수정 안됬어요";
