@@ -34,9 +34,9 @@ public class UserController {
     public String UserAdd(@RequestBody User user){
         List<UserDTO> userList = userService.findUserById(user.getUserId());
         if(userList.size() > 0){
-            return "문제가있어요"; // if조건에 맞으면 돌아가는 출력
+            return "이미 존재하는 아이디예요";
         }
-        userService.addUser(user.getUserId(), user.getUserPwd());
+        userService.addUser(user);
         return "추가완료";
     }
 
@@ -48,7 +48,7 @@ public class UserController {
             return "수정 안됬어요";
         }
 
-        userService.modifyUser(user.getUserId(), user.getUserPwd());
+        userService.modifyUser(user);
         return "수정완료";
     }
 
