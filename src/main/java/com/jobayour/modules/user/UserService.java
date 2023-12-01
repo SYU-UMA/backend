@@ -1,7 +1,5 @@
 package com.jobayour.modules.user;
 
-import com.jobayour.modules.user.UserDTO;
-import com.jobayour.modules.user.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-//수정
+
 @Service
 public class UserService {
 

@@ -3,7 +3,6 @@ package com.jobayour.modules.qualification;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//수정
 @RestController
 @RequestMapping(value = "/qualification")
 public class QualificationController {

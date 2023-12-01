@@ -1,7 +1,7 @@
 package com.jobayour.modules.qualification;
 
 import javax.persistence.*;
-//수정
+
 @Entity
 @Table(name="qualifications")
 public class Qualification {
