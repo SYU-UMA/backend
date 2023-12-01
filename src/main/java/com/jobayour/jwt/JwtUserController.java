@@ -1,6 +1,6 @@
 package com.jobayour.jwt;
 
-import com.jobayour.modules.user.UserDTO;
+import com.jobayour.modules.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +15,12 @@ public class JwtUserController {
     private JwtUserService jwtuserService;
 
     @PostMapping("/register")
-    public UserDTO.User registerUser(@RequestBody UserDTO.User user) {
+    public User registerUser(@RequestBody User user) {
         return jwtuserService.registerUser(user);
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody UserDTO.User user) {
+    public String loginUser(@RequestBody User user) {
         return jwtuserService.loginUser(user);
     }
 
