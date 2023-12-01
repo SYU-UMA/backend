@@ -1,6 +1,6 @@
 package com.jobayour.jwt;
 
-import com.jobayour.modules.user.UserDTO;
+import com.jobayour.modules.user.User;
 import com.jobayour.modules.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements JwtUserService {
 
 
     @Override
-    public UserDTO.User registerUser(UserDTO.User user) {
+    public User registerUser(User user) {
         if (userRepository.existsById(user.getUserId())) {
             throw new RuntimeException("이미 등록된 사용자입니다.");
         }
@@ -27,7 +27,7 @@ public class UserServiceImpl implements JwtUserService {
     }
 
     @Override
-    public String loginUser(UserDTO.User user) {
+    public String loginUser(User user) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
         if (!userDetails.getPassword().equals(user.getUserPwd())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");

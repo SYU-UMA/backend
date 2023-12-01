@@ -1,8 +1,8 @@
 package com.jobayour.jwt;
 
-import com.jobayour.modules.user.UserDTO;
+import com.jobayour.modules.user.User;
 
 public interface JwtUserService {
-    UserDTO.User registerUser(UserDTO.User user);
-    String loginUser(UserDTO.User user);
+    User registerUser(User user);
+    String loginUser(User user);
 }
