@@ -1,7 +1,5 @@
 package com.jobayour.modules.user;
 
-import com.jobayour.modules.user.UserDTO;
-import com.jobayour.modules.user.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-//수정
+
 @Service
 public class UserService {
 
@@ -41,20 +39,30 @@ public class UserService {
     }
 
     //유저 추가
-    public void addUser(String id, String pwd) {
+    public void addUser(User userinfo) {
         User user = new User();
-        user.setUserId(id);
-        user.setUserPwd(pwd);
+        user.setUserId(userinfo.getUserId());
+        user.setUserPwd(userinfo.getUserPwd());
+        user.setUserName(userinfo.getUserName());
+        user.setUserBirthday(userinfo.getUserBirthday());
+        user.setUserPhone(userinfo.getUserPhone());
+        user.setUserEmail(userinfo.getUserEmail());
         userRepository.save(modelMapper.map(user, User.class));
     }
 
+    //유저 수정
     @Transactional
-    public void modifyUser(String id, String pwd) {
-        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        user.setUserId(id);
-        user.setUserPwd(pwd);
+    public void modifyUser(User userinfo) {
+        User user = userRepository.findById(userinfo.getUserId()).orElseThrow(IllegalArgumentException::new);
+        user.setUserId(userinfo.getUserId());
+        user.setUserPwd(userinfo.getUserPwd());
+        user.setUserName(userinfo.getUserName());
+        user.setUserBirthday(userinfo.getUserBirthday());
+        user.setUserPhone(userinfo.getUserPhone());
+        user.setUserEmail(userinfo.getUserEmail());
     }
 
+    //유저 삭제
     @Transactional
     public void deleteUser(String id) {
         userRepository.deleteById(id);

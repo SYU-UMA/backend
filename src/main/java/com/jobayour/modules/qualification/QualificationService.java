@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-//수정
+
 @Service
 public class QualificationService {
 
@@ -19,7 +19,7 @@ public class QualificationService {
         this.modelMapper = modelMapper;
     }
 
-    // 자격리스트 조회
+    // 증명리스트 조회
     public List<QualificationDTO> findqualById(String id) {
         List<Qualification> qualList = qualificationRepository.findQualificationByUserId(id);
         List<QualificationDTO> list = qualList.stream()
@@ -57,6 +57,7 @@ public class QualificationService {
     }
 
 
+    // 증명번호 오름차순으로 정렬해서 조회
     public Qualification findTopByIdOrderByQualificationsNumDesc(String id) {
         Qualification qual = qualificationRepository.findTopByUserIdOrderByQualificationsNumberDesc(id);
         //int qualNumber = qual.getQualificationsNumber();

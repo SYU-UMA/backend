@@ -1,7 +1,7 @@
 package com.jobayour.modules.qualification;
 
 import java.io.Serializable;
-//수정
+
 public class QualificationDTO implements Serializable {
 
     private int qualificationsNumber;

@@ -1,6 +1,4 @@
 package com.jobayour.modules.qualification;
-//수정
-import com.jobayour.modules.qualification.Qualification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
