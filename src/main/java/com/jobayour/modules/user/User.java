@@ -1,16 +1,24 @@
-package com.jobayour.dto;
+package com.jobayour.modules.user;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 //수정
-public class UserDTO implements Serializable {
-
+@Entity
+@Table(name="userprofiles")
+public class User{
+    @Id
+    @Column(name = "userid")
     private String userId;
+
+    @Column(name = "userpwd")
     private String userPwd;
 
-    public UserDTO() {
+    public User() {
     }
 
-    public UserDTO(String userId, String userPwd) {
+    public User(String userId, String userPwd) {
         this.userId = userId;
         this.userPwd = userPwd;
     }
@@ -33,7 +41,7 @@ public class UserDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
+        return "User{" +
                 "userId='" + userId + '\'' +
                 ", userPwd='" + userPwd + '\'' +
                 '}';

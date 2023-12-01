@@ -1,10 +1,10 @@
-package com.jobayour.service;
+package com.jobayour.modules.interview;
 
-import com.jobayour.dto.InterviewDTO;
-import com.jobayour.entity.Interview;
-import com.jobayour.entity.Qualification;
-import com.jobayour.repository.InterviewRepository;
-import com.jobayour.repository.QualificationRepository;
+import com.jobayour.modules.interview.InterviewDTO;
+import com.jobayour.modules.interview.Interview;
+import com.jobayour.modules.qualification.Qualification;
+import com.jobayour.modules.interview.InterviewRepository;
+import com.jobayour.modules.qualification.QualificationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

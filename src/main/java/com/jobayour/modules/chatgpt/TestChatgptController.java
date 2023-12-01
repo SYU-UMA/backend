@@ -1,8 +1,5 @@
-package com.jobayour.controller;
+package com.jobayour.modules.chatgpt;
 
-import com.jobayour.dto.QuestionAndAnswerDTO;
-
-import com.jobayour.service.GetQualAndChatapiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

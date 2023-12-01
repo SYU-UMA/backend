@@ -1,8 +1,5 @@
-package com.jobayour.service;
+package com.jobayour.modules.qualification;
 
-import com.jobayour.dto.QualificationDTO;
-import com.jobayour.entity.Qualification;
-import com.jobayour.repository.QualificationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,6 @@
-package com.jobayour.controller;
+package com.jobayour.modules.user;
 
 
-import com.jobayour.dto.UserDTO;
-import com.jobayour.entity.User;
-import com.jobayour.service.UserService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +31,7 @@ public class UserController {
 
     // 유저 추가 핸들러 메소드
     @PostMapping("/add")
-    public String UserAdd(@RequestBody User user){
+    public String UserAdd(@RequestBody UserDTO.User user){
         List<UserDTO> userList = userService.findUserById(user.getUserId());
         if(userList.size() > 0){
             return "문제가있어요"; // if조건에 맞으면 돌아가는 출력
@@ -46,7 +42,7 @@ public class UserController {
 
     // 유저 비밀번호 수정 핸들러 메소드
     @PostMapping("/modify")
-    public String UserModfiy(@RequestBody User user){
+    public String UserModfiy(@RequestBody UserDTO.User user){
         List<UserDTO> userList = userService.findUserById(user.getUserId());
         if(userList.size() == 0) {
             return "수정 안됬어요";

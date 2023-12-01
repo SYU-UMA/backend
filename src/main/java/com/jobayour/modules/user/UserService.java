@@ -1,8 +1,7 @@
-package com.jobayour.service;
+package com.jobayour.modules.user;
 
-import com.jobayour.dto.UserDTO;
-import com.jobayour.entity.User;
-import com.jobayour.repository.UserRepository;
+import com.jobayour.modules.user.UserDTO;
+import com.jobayour.modules.user.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +23,9 @@ public class UserService {
 
     //유저 전체 리스트 조회
     public List<UserDTO> findAllUser() {
-        List<User> userList = userRepository.findAll();
+        List<UserDTO.User> userList = userRepository.findAll();
         List<UserDTO> list = userList.stream()
-                .sorted(Comparator.comparing(User::getUserId))
+                .sorted(Comparator.comparing(UserDTO.User::getUserId))
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
         return list;
@@ -34,7 +33,7 @@ public class UserService {
 
     //유저 아이디 찾기
     public List<UserDTO> findUserById(String id){
-        List<User> userList = userRepository.findUserByUserId(id);
+        List<UserDTO.User> userList = userRepository.findUserByUserId(id);
         List<UserDTO> list = userList.stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
@@ -43,15 +42,15 @@ public class UserService {
 
     //유저 추가
     public void addUser(String id, String pwd) {
-        User user = new User();
+        UserDTO.User user = new UserDTO.User();
         user.setUserId(id);
         user.setUserPwd(pwd);
-        userRepository.save(modelMapper.map(user, User.class));
+        userRepository.save(modelMapper.map(user, UserDTO.User.class));
     }
 
     @Transactional
     public void modifyUser(String id, String pwd) {
-        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        UserDTO.User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         user.setUserId(id);
         user.setUserPwd(pwd);
     }

@@ -1,8 +1,5 @@
-package com.jobayour.controller;
+package com.jobayour.modules.interview;
 
-import com.jobayour.dto.InterviewDTO;
-import com.jobayour.entity.Interview;
-import com.jobayour.service.InterviewService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

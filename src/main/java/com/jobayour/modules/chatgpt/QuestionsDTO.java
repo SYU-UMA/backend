@@ -1,4 +1,4 @@
-package com.jobayour.dto;
+package com.jobayour.modules.chatgpt;
 
 
 import java.util.List;

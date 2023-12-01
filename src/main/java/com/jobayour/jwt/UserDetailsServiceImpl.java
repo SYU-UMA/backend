@@ -1,7 +1,7 @@
 package com.jobayour.jwt;
 
-import com.jobayour.entity.User;
-import com.jobayour.repository.UserRepository;
+import com.jobayour.modules.user.UserDTO;
+import com.jobayour.modules.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,9 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        List<User> userList = userRepository.findUserByUserId(userId);
+        List<UserDTO.User> userList = userRepository.findUserByUserId(userId);
 
-        User user = userList.stream()
+        UserDTO.User user = userList.stream()
                 .findFirst()
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없음. 사용자명: " + userId));
 

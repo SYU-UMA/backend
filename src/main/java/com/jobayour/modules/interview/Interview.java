@@ -1,4 +1,4 @@
-package com.jobayour.entity;
+package com.jobayour.modules.interview;
 
 import javax.persistence.*;
 

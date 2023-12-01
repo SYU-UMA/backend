@@ -1,8 +1,5 @@
-package com.jobayour.controller;
+package com.jobayour.modules.qualification;
 
-import com.jobayour.dto.QualificationDTO;
-import com.jobayour.entity.Qualification;
-import com.jobayour.service.QualificationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

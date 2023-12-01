@@ -1,30 +1,20 @@
-package com.jobayour.entity;
+package com.jobayour.modules.qualification;
 
-import javax.persistence.*;
+import java.io.Serializable;
 //수정
-@Entity
-@Table(name="qualifications")
-public class Qualification {
+public class QualificationDTO implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qualificationsnumber")
     private int qualificationsNumber;
-    @Column(name = "userid")
     private String userId;
-    @Column(name = "job")
     private String job;
-    @Column(name = "career")
     private String career;
-    @Column(name = "level")
     private String level;
-    @Column(name = "requirements")
     private String requirements;
 
-    public Qualification() {
+    public QualificationDTO() {
     }
 
-    public Qualification(int qualificationsNumber, String userId, String job, String career, String level, String requirements) {
+    public QualificationDTO(int qualificationsNumber, String userId, String job, String career, String level, String requirements) {
         this.qualificationsNumber = qualificationsNumber;
         this.userId = userId;
         this.job = job;
@@ -61,8 +51,8 @@ public class Qualification {
         return career;
     }
 
-    public void setCareer(String carrer) {
-        this.career = carrer;
+    public void setCareer(String career) {
+        this.career = career;
     }
 
     public String getLevel() {
@@ -83,7 +73,7 @@ public class Qualification {
 
     @Override
     public String toString() {
-        return "Qualification{" +
+        return "QualificationDTO{" +
                 "qualificationsNumber=" + qualificationsNumber +
                 ", userId='" + userId + '\'' +
                 ", job='" + job + '\'' +

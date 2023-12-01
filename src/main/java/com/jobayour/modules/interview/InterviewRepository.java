@@ -1,11 +1,10 @@
-package com.jobayour.repository;
+package com.jobayour.modules.interview;
 //수정
-import com.jobayour.entity.Interview;
+import com.jobayour.modules.interview.Interview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview, String> {
