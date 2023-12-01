@@ -1,4 +1,4 @@
-package com.jobayour.dto;
+package com.jobayour.modules.chatgpt;
 
 public class QuestionAndAnswerDTO {
 

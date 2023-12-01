@@ -1,4 +1,4 @@
-package com.jobayour.dto;
+package com.jobayour.modules.interview;
 
 
 import java.io.Serializable;

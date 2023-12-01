@@ -1,14 +1,13 @@
-package com.jobayour.service;
+package com.jobayour.modules.chatgpt;
 
-import com.jobayour.dto.QuestionAndAnswerDTO;
-import com.jobayour.entity.Interview;
-import com.jobayour.entity.Qualification;
+import com.jobayour.modules.interview.Interview;
+import com.jobayour.modules.interview.InterviewService;
+import com.jobayour.modules.qualification.Qualification;
 import com.jobayour.jwt.JwtTokenProvider;
+import com.jobayour.modules.qualification.QualificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -29,7 +28,7 @@ public class ChatgptSearchService {
 
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
 
-        String userId = jwtTokenProvider.getUserPk(token);      //jwt토큰에서 userId추출
+        String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
 
         System.out.println(userId);
 

@@ -1,9 +1,9 @@
-package com.jobayour.service;
+package com.jobayour.modules.chatgpt;
 
-import com.jobayour.dto.QualificationDTO;
-import com.jobayour.dto.QuestionAndAnswerDTO;
-import com.jobayour.entity.Interview;
-import com.jobayour.entity.Qualification;
+import com.jobayour.modules.interview.Interview;
+import com.jobayour.modules.interview.InterviewService;
+import com.jobayour.modules.qualification.Qualification;
+import com.jobayour.modules.qualification.QualificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
