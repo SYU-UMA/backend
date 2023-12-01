@@ -1,4 +1,4 @@
-package com.jobayour.service;
+package com.jobayour.modules.chatgpt;
 
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,10 @@
 package com.jobayour.modules.chatgpt;
 
-import com.jobayour.modules.chatgpt.QuestionAndAnswerDTO;
 import com.jobayour.modules.interview.Interview;
 import com.jobayour.modules.interview.InterviewService;
 import com.jobayour.modules.qualification.Qualification;
 import com.jobayour.jwt.JwtTokenProvider;
 import com.jobayour.modules.qualification.QualificationService;
-import com.jobayour.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
