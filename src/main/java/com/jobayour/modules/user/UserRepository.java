@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserDTO.User, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     //@Query("select u from User u where u.id = ?1 ")
-    List<UserDTO.User> findUserByUserId(String id);
+    List<User> findUserByUserId(String id);
 }

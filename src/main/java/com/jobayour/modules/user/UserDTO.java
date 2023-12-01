@@ -44,46 +44,5 @@ public class UserDTO implements Serializable {
     }
 
     //수정
-    @Entity
-    @Table(name="userprofiles")
-    public static class User{
-        @Id
-        @Column(name = "userid")
-        private String userId;
 
-        @Column(name = "userpwd")
-        private String userPwd;
-
-        public User() {
-        }
-
-        public User(String userId, String userPwd) {
-            this.userId = userId;
-            this.userPwd = userPwd;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getUserPwd() {
-            return userPwd;
-        }
-
-        public void setUserPwd(String userPwd) {
-            this.userPwd = userPwd;
-        }
-
-        @Override
-        public String toString() {
-            return "User{" +
-                    "userId='" + userId + '\'' +
-                    ", userPwd='" + userPwd + '\'' +
-                    '}';
-        }
-    }
 }

@@ -23,9 +23,9 @@ public class UserService {
 
     //유저 전체 리스트 조회
     public List<UserDTO> findAllUser() {
-        List<UserDTO.User> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAll();
         List<UserDTO> list = userList.stream()
-                .sorted(Comparator.comparing(UserDTO.User::getUserId))
+                .sorted(Comparator.comparing(User::getUserId))
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
         return list;
@@ -33,7 +33,7 @@ public class UserService {
 
     //유저 아이디 찾기
     public List<UserDTO> findUserById(String id){
-        List<UserDTO.User> userList = userRepository.findUserByUserId(id);
+        List<User> userList = userRepository.findUserByUserId(id);
         List<UserDTO> list = userList.stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
@@ -42,15 +42,15 @@ public class UserService {
 
     //유저 추가
     public void addUser(String id, String pwd) {
-        UserDTO.User user = new UserDTO.User();
+        User user = new User();
         user.setUserId(id);
         user.setUserPwd(pwd);
-        userRepository.save(modelMapper.map(user, UserDTO.User.class));
+        userRepository.save(modelMapper.map(user, User.class));
     }
 
     @Transactional
     public void modifyUser(String id, String pwd) {
-        UserDTO.User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         user.setUserId(id);
         user.setUserPwd(pwd);
     }
