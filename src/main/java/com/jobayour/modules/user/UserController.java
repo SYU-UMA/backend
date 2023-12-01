@@ -25,7 +25,6 @@ public class UserController {
     @GetMapping("/{id}")
     public List<UserDTO> UserFind(@PathVariable String id){
         List<UserDTO> userList = userService.findUserById(id);
-        //model.addAttribute("userList", userList); // model이 필요없나?
         return userList;
     }
 

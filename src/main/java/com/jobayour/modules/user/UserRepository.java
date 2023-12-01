@@ -1,6 +1,4 @@
 package com.jobayour.modules.user;
-//수정
-import com.jobayour.modules.user.UserDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

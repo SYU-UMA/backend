@@ -46,7 +46,7 @@ public class QualificationController {
         return "수정 완료";
     }
 
-    // 유저 증명 삭제 인터뷰에 참고되어있을떈 삭제 불가, 수정 필요
+    // 유저 증명 삭제 인터뷰(질문답변)에 연결되어 있을 땐 삭제 불가, 질문답변 삭제후 인터뷰 삭제가능
     @DeleteMapping("/delete")
     public String QualDelete(@RequestBody Qualification qualification){
         qualificationService.deleteQual(qualification);

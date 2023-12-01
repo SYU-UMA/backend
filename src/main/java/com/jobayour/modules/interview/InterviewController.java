@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//수정
 @RestController
 @RequestMapping(value = "/interview")
 public class InterviewController {
@@ -22,7 +21,7 @@ public class InterviewController {
         return interviewList;
     }
 
-    // 최근 인터뷰 5개 리스트 조회
+    // 최근 인터뷰 5개 리스트 조회 (인터뷰번호 오름차순으로 정렬후 5개 가져오기 방식)
     @GetMapping("/recentlist")
     public List<InterviewDTO> recentinterviewList(@RequestParam String id){
         List<InterviewDTO> interviewList = interviewService.findTop5ByUserIdOrderByInterviewNumberDesc(id);

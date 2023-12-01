@@ -52,6 +52,7 @@ public class UserService {
         userRepository.save(modelMapper.map(user, User.class));
     }
 
+    //유저 수정
     @Transactional
     public void modifyUser(User userinfo) {
         User user = userRepository.findById(userinfo.getUserId()).orElseThrow(IllegalArgumentException::new);
@@ -63,6 +64,7 @@ public class UserService {
         user.setUserEmail(userinfo.getUserEmail());
     }
 
+    //유저 삭제
     @Transactional
     public void deleteUser(String id) {
         userRepository.deleteById(id);

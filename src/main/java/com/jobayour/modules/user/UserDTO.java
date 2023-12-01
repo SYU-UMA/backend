@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
 
-//수정
+
 public class UserDTO implements Serializable {
 
     private String userId;

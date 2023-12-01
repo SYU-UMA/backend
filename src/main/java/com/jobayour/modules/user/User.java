@@ -6,7 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
 
-//수정
+/*2023-12-01 주석
+ 유저 프로필 엔티티
+ 생년월일 : DATE 형식 ex) 2020-01-01 이런방식으로 저장
+ */
 @Entity
 @Table(name="userprofiles")
 public class User{
