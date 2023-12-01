@@ -23,4 +23,15 @@ public class JwtUserController {
     public String loginUser(@RequestBody User user) {
         return jwtuserService.loginUser(user);
     }
+
+
+    /*
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // 클라이언트 토큰을 삭제 시
+        return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+    }*/
+
+
+
 }
