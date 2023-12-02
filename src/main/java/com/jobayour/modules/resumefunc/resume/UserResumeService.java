@@ -30,12 +30,26 @@ public class UserResumeService {
         return list;
     }
 
+    //개인 유저아이디와 번호로 해당하는 이력서 조회
+    public UserResume findResumeByIdAndnum(String id, int resumeNum) {
+        UserResume userResume = userResumeRepository.findByResumeNumAndUserId(resumeNum, id);
+        return userResume;
+    }
+
     // 유저 이력 추가
     public void addUserResume(UserResume userResumeinfo) {
-        UserResume userResume1 = new UserResume();
-        userResume1.setUserId(userResumeinfo.getUserId());
-        userResume1.setType(userResumeinfo.getType());
-        userResumeRepository.save(modelMapper.map(userResume1, UserResume.class));
+        UserResume userResume = new UserResume();
+        userResume.setUserId(userResumeinfo.getUserId());
+        userResume.setType(userResumeinfo.getType());
+        userResume.setResumeName(userResumeinfo.getResumeName());
+        userResume.setIntroJob(userResumeinfo.getIntroJob());
+        userResume.setIntroContents(userResumeinfo.getIntroContents());
+        userResume.setCore1(userResumeinfo.getCore1());
+        userResume.setCore2(userResumeinfo.getCore2());
+        userResume.setCore3(userResumeinfo.getCore3());
+        userResume.setCore4(userResumeinfo.getCore4());
+        userResume.setCore5(userResumeinfo.getCore5());
+        userResumeRepository.save(modelMapper.map(userResume, UserResume.class));
     }
 
     // 개인 유저 이력 수정
@@ -43,9 +57,17 @@ public class UserResumeService {
     public void modifyUserResume(UserResume userResumeinfo) {
         UserResume userResume = userResumeRepository
                 .findByResumeNumAndUserId(userResumeinfo.getResumeNum(), userResumeinfo.getUserId());
-        userResume.setUserId(userResume.getUserId());
-        userResume.setResumeNum(userResume.getResumeNum());
+        userResume.setUserId(userResumeinfo.getUserId());
+        userResume.setResumeNum(userResumeinfo.getResumeNum());
         userResume.setType(userResumeinfo.getType());
+        userResume.setResumeName(userResumeinfo.getResumeName());
+        userResume.setIntroJob(userResumeinfo.getIntroJob());
+        userResume.setIntroContents(userResumeinfo.getIntroContents());
+        userResume.setCore1(userResumeinfo.getCore1());
+        userResume.setCore2(userResumeinfo.getCore2());
+        userResume.setCore3(userResumeinfo.getCore3());
+        userResume.setCore4(userResumeinfo.getCore4());
+        userResume.setCore5(userResumeinfo.getCore5());
     }
 
     // 개인 유저 이력 삭제
@@ -53,5 +75,7 @@ public class UserResumeService {
     public void deleteUserResume(UserResume userResume) {
         userResumeRepository.deleteUserResumeByResumeNumAndAndUserId(userResume.getResumeNum(), userResume.getUserId());
     }
+
+
 }
 
