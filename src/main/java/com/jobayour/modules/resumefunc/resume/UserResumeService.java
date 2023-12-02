@@ -30,6 +30,12 @@ public class UserResumeService {
         return list;
     }
 
+    //개인 유저아이디와 번호로 해당하는 이력서 조회
+    public UserResume findResumeByIdAndnum(String id, int resumeNum) {
+        UserResume userResume = userResumeRepository.findByResumeNumAndUserId(resumeNum, id);
+        return userResume;
+    }
+
     // 유저 이력 추가
     public void addUserResume(UserResume userResumeinfo) {
         UserResume userResume = new UserResume();
@@ -69,5 +75,7 @@ public class UserResumeService {
     public void deleteUserResume(UserResume userResume) {
         userResumeRepository.deleteUserResumeByResumeNumAndAndUserId(userResume.getResumeNum(), userResume.getUserId());
     }
+
+
 }
 

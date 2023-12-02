@@ -23,6 +23,13 @@ public class UserResumeController {
         List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(user);
         return userResumeList;
     }
+
+    // 개인 유저 이력 한개 조회
+    @GetMapping("/list/num")
+    public UserResume UserResumeNum(@RequestParam String id,@RequestParam int resumeNum){
+        UserResume userResume = userResumeservice.findResumeByIdAndnum(id, resumeNum);
+        return userResume;
+    }
     // 개인 유저 이력 제목들만 조회하는 핸들러 메소드
     @GetMapping("/list/name")
     public List<String> UserResumeNameList(@RequestBody User user){
