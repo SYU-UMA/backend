@@ -2,10 +2,10 @@ package com.jobayour.modules.resumefunc.resume;
 
 
 import com.jobayour.modules.user.User;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/resume")
@@ -22,6 +22,14 @@ public class UserResumeController {
     public List<UserResumeDTO> UserResumeList(@RequestBody User user){
         List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(user);
         return userResumeList;
+    }
+    // 개인 유저 이력 제목들만 조회하는 핸들러 메소드
+    @GetMapping("/list/name")
+    public List<String> UserResumeNameList(@RequestBody User user){
+        List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(user);
+        return userResumeList.stream()
+                .map(UserResumeDTO::getResumeName)
+                .collect(Collectors.toList());
     }
 
     // 개인 유저 이력 추가 핸들러 메소드
