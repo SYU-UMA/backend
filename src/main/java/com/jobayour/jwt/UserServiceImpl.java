@@ -3,10 +3,13 @@ package com.jobayour.jwt;
 import com.jobayour.modules.user.User;
 import com.jobayour.modules.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +18,14 @@ public class UserServiceImpl implements JwtUserService {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
-
+    @Override
+    public void logoutUser(String userId) {
+        String refreshToken = jwtTokenProvider.getRefreshToken(userId);
+        redisTemplate.delete(jwtTokenProvider.refreshTokenKey(userId));
+    }
     @Override
     public User registerUser(User user) {
         if (userRepository.existsById(user.getUserId())) {
@@ -33,10 +42,9 @@ public class UserServiceImpl implements JwtUserService {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
-        return jwtTokenProvider.createToken(userDetails.getUsername(), Collections.emptyList());
+        Map<String, String> tokens = jwtTokenProvider.createTokens(userDetails.getUsername(), Collections.emptyList());
+
+        return tokens.get("accessToken");
     }
-
-
-
-
 }
+
