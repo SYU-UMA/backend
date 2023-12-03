@@ -50,7 +50,7 @@ public class JwtTokenProvider {
         return (String) redisTemplate.opsForValue().get(refreshTokenKey(userId));
     }
     // JWT 토큰 생성
-    public Map<String, String> createTokens(String userId, List<String> roles) {
+    public Map<String, String> createToken(String userId, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userId);
         claims.put("roles", roles);
         Date now = new Date();
@@ -69,11 +69,11 @@ public class JwtTokenProvider {
 
         saveRefreshToken(userId, refreshToken);
 
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("accessToken", accessToken);
-        tokens.put("refreshToken", refreshToken);
+        Map<String, String> token = new HashMap<>();
+        token.put("accessToken", accessToken);
+        token.put("refreshToken", refreshToken);
 
-        return tokens;
+        return token;
     }
 
     // JWT 토큰에서 인증 정보 조회

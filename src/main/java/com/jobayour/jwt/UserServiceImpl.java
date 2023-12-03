@@ -42,9 +42,9 @@ public class UserServiceImpl implements JwtUserService {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
-        Map<String, String> tokens = jwtTokenProvider.createTokens(userDetails.getUsername(), Collections.emptyList());
+        Map<String, String> token = jwtTokenProvider.createToken(userDetails.getUsername(), Collections.emptyList());
 
-        return tokens.get("accessToken");
+        return token.get("accessToken");
     }
 }
 
