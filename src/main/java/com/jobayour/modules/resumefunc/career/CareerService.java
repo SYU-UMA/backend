@@ -20,6 +20,12 @@ public class CareerService {
         this.modelMapper = modelMapper;
     }
 
+    //가장 최근 유저 경력 전체 조회(오름차순)
+    public Career findTopByUserIdOrderByUserCareerNumDesc(String id){
+        Career career = careerRepository.findTopByUserIdOrderByUserCareerNumDesc(id);
+        return career;
+    }
+
     // 유저 아이디와 이력서번호 찾아서 해당하는 경력 전체 조회
     public List<CareerDTO> findCareerById(UserResume userResume) {
         List<Career> userCareerList = careerRepository.findByUserIdAndResumeNum(userResume.getUserId(), userResume.getResumeNum());

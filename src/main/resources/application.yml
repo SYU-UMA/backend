@@ -24,4 +24,4 @@ spring:
 chatgpt:
   api-key: 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
 server:
-  port: 8001
+  port: 8080

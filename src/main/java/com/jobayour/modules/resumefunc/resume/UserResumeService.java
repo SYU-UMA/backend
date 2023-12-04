@@ -20,6 +20,12 @@ public class UserResumeService {
         this.modelMapper = modelMapper;
     }
 
+    //가장 최근 유저 이력 전체 조회(오름차순)
+    public UserResume findTopByUserIdOrderByResumeNumDesc(String id){
+        UserResume userResume = userResumeRepository.findTopByUserIdOrderByResumeNumDesc(id);
+        return userResume;
+    }
+
     //개인 유저 이력 전체 조회
     public List<UserResumeDTO> findAllUserResume(User user) {
         List<UserResume> userResumeList = userResumeRepository.findAllByUserId(user.getUserId());
