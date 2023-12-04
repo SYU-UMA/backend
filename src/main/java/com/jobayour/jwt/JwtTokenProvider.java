@@ -73,6 +73,9 @@ public class JwtTokenProvider {
         token.put("accessToken", accessToken);
         token.put("refreshToken", refreshToken);
 
+       // 토큰 값 출력 삭제 예정
+        System.out.println(token);
+
         return token;
     }
 
