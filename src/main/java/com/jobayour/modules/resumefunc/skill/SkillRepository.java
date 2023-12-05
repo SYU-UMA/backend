@@ -13,4 +13,7 @@ public interface SkillRepository extends JpaRepository<Skill, String> {
     Skill findBySkillNumAndUserIdAndResumeNum(int skillNum, String id, int resumeNum);
 
     void deleteBySkillNumAndUserIdAndResumeNum(int skillNum, String id, int resumeNum);
+
+    //최근 가장 최근 유저 skill 전체 조회
+    Skill findTopByUserIdOrderBySkillNumDesc(String id);
 }

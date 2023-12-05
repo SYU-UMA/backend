@@ -13,4 +13,9 @@ public interface UserResumeRepository extends JpaRepository<UserResume, String> 
     UserResume findByResumeNumAndUserId(int num, String id);
 
     void deleteUserResumeByResumeNumAndAndUserId(int num, String id);
+
+    //최근 가장 최근 유저 이력 전체 조회
+    UserResume findTopByUserIdOrderByResumeNumDesc(String id);
+
+
 }

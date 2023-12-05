@@ -21,6 +21,9 @@ public class UserResumeController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    //가장 최근 유저 이력 전체 조회
+   //일단 서비스에만 구현
+
     // 개인 유저 이력 전체 조회 핸들러 메소드
     @GetMapping("/list")
     public List<UserResumeDTO> UserResumeList(@RequestBody User user, HttpServletRequest request){
