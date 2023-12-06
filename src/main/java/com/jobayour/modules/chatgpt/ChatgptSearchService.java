@@ -34,7 +34,7 @@ public class ChatgptSearchService {
     private final UserResumeService userResumeService;          //자소서 정보를 가져오기위한 서비스
 
     private final SkillService skillService;
-    public void test(HttpServletRequest request){       //***프론트에서 resumeNum과 userCareerNum을 매개변수로 받아와야 할듯***
+    public void test(HttpServletRequest request,CandidateKeyDTO candidateKeyDTO){       //***프론트에서 resumeNum과 userCareerNum을 매개변수로 받아와야 할듯***
 
         int checkNumber = 5;        // 5개의 질문과 답변을 저장하기위해 체크하는 정보
 
@@ -42,20 +42,20 @@ public class ChatgptSearchService {
 
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
 
-        //가장 최근에 등록한 경력 내용 가져오기
-        Career career = careerService.findTopByUserIdOrderByUserCareerNumDesc(userId);
-        //테스트
+        // 경력 내용 가져오기
+        Career career = careerService.findCareerByIdAndNum(userId, candidateKeyDTO.getUserCareerNum(), candidateKeyDTO.getResumeNum());
+        // 테스트
         System.out.println(career.getCompany());
 
-        //가장 최근에 등록한 이력서 내용 가져오기
-        UserResume userResume = userResumeService.findTopByUserIdOrderByResumeNumDesc(userId);
+        // 이력서 내용 가져오기
+        UserResume userResume = userResumeService.findResumeByIdAndnum(userId,candidateKeyDTO.getResumeNum());
         //테스트
-        System.out.println(userResume.getCore1());
+       System.out.println(userResume.getIntroContents());
 
-        //가장 최근에 등록한 스킬 내용 가져오기
-        Skill skill = skillService.findTopByUserIdOrderBySkillNumDesc(userId);
+        // 스킬 내용 가져오기
+       Skill skill = skillService.findByUserIdAndSkillNum(userId,candidateKeyDTO.getSkillNum());
         //테스트
-        System.out.println(skill.getSkill());
+       System.out.println(skill.getSkill());
 
         // quallist db조회해서 필요한 데이터 가져오기
         Qualification getData = qualificationService.findTopByIdOrderByQualificationsNumDesc(userId);
@@ -78,18 +78,23 @@ public class ChatgptSearchService {
                 String question = pairs[0].trim();
                 String answer = pairs[1].trim();
                 answer = answer.replaceAll("\\\\", "");
-                QuestionAndAnswerDTO questionAndAnswerDTO = new QuestionAndAnswerDTO(question, answer);
+                if (question.startsWith("Q") && answer.startsWith("A")) {
+                    QuestionAndAnswerDTO questionAndAnswerDTO = new QuestionAndAnswerDTO(question, answer);
 
-                //question과 answer 비어있지 않은지에 대한 여부 확인 후 저장
-                if (questionAndAnswerDTO.isQuestionAndAnswerValid()) {
+                    //question과 answer 비어있지 않은지에 대한 여부 확인 후 저장
+                    if (questionAndAnswerDTO.isQuestionAndAnswerValid()) {
 
-                    Interview interview = new Interview(getData.getQualificationsNumber()
-                            , "test", questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
+                        Interview interview = new Interview(getData.getQualificationsNumber()
+                                , "test", questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
 
-                    interviewService.addInterview(interview);
+                        interviewService.addInterview(interview);
 
-                    checkNumber--;
+                        checkNumber--;
+                    }else{
+                        break;
+                    }
                 }
+
             }
         }
 

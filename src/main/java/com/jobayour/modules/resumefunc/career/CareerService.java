@@ -26,6 +26,8 @@ public class CareerService {
         return career;
     }
 
+
+
     // 유저 아이디와 이력서번호 찾아서 해당하는 경력 전체 조회
     public List<CareerDTO> findCareerById(UserResume userResume) {
         List<Career> userCareerList = careerRepository.findByUserIdAndResumeNum(userResume.getUserId(), userResume.getResumeNum());
@@ -41,6 +43,12 @@ public class CareerService {
         Career userCareer = careerRepository.findByUserIdAndResumeNumAndUserCareerNum(career.getUserId(), career.getResumeNum(), career.getUserCareerNum());
         CareerDTO list = modelMapper.map(userCareer, CareerDTO.class);
         return list;
+    }
+
+    //유저 아이디,경력번호, 이력서 번호찾아서 해당하는 경력 조회 한개 조회(id,이력서번호,경력번호로만 조회하기)
+    public Career findCareerByIdAndNum(String userId,int userCareerNum, int resumeNum){
+        Career userCareer = careerRepository.findByUserIdAndResumeNumAndUserCareerNum(userId,resumeNum,userCareerNum);
+        return userCareer;
     }
 
     // 유저 경력 추가

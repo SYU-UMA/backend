@@ -25,7 +25,13 @@ public class SkillService {
         return skill;
     }
 
-    // 유저이름과 num로 이력서에 저장한 스킬 조회
+    // 유저 이름과 skillNum으로 이력서에 저장한 스킬 조회(1개)
+    public Skill findByUserIdAndSkillNum(String userId,int skillNum){
+        Skill skill= skillRepository.findByUserIdAndSkillNum(userId,skillNum);
+        return skill;
+    }
+
+    // 유저이름과 num로 이력서에 저장한 스킬 조회(전체)
     public List<SkillDTO> skillListbyIdAndUserId(UserResume userResume) {
         List<Skill> skillList = skillRepository.findAllByUserIdAndResumeNum(userResume.getUserId(), userResume.getResumeNum());
         List<SkillDTO> list = skillList.stream()
