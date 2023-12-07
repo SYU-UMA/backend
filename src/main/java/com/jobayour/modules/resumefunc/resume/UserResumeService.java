@@ -21,8 +21,8 @@ public class UserResumeService {
     }
 
     //개인 유저 이력 전체 조회
-    public List<UserResumeDTO> findAllUserResume(User user) {
-        List<UserResume> userResumeList = userResumeRepository.findAllByUserId(user.getUserId());
+    public List<UserResumeDTO> findAllUserResume(String userId) {
+        List<UserResume> userResumeList = userResumeRepository.findAllByUserId(userId);
         List<UserResumeDTO> list = userResumeList.stream()
                 .sorted(Comparator.comparing(UserResume::getUserId))
                 .map(userResume -> modelMapper.map(userResume, UserResumeDTO.class))
