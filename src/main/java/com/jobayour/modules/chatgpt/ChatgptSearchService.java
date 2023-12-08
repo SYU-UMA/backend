@@ -30,7 +30,6 @@ public class ChatgptSearchService {
 
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
 
-        System.out.println(userId);
 
         // quallist db조회해서 필요한 데이터 가져오기
         Qualification getData = qualificationService.findTopByIdOrderByQualificationsNumDesc(userId);
