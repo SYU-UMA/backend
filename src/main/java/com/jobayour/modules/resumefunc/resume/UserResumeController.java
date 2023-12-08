@@ -26,11 +26,10 @@ public class UserResumeController {
 
     // 개인 유저 이력 전체 조회 핸들러 메소드
     @GetMapping("/list")
-    public List<UserResumeDTO> UserResumeList(@RequestBody User user, HttpServletRequest request){
+    public List<UserResumeDTO> UserResumeList(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        user.setUserId(userId);
-        List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(user);
+        List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(userId);
         return userResumeList;
     }
 
@@ -44,11 +43,10 @@ public class UserResumeController {
     }
     // 개인 유저 이력 제목들만 조회하는 핸들러 메소드
     @GetMapping("/list/name")
-    public List<String> UserResumeNameList(@RequestBody User user,HttpServletRequest request){
+    public List<String> UserResumeNameList(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        user.setUserId(userId);
-        List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(user);
+        List<UserResumeDTO> userResumeList = userResumeservice.findAllUserResume(userId);
         return userResumeList.stream()
                 .map(UserResumeDTO::getResumeName)
                 .collect(Collectors.toList());
