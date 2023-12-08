@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -54,4 +55,20 @@ public class UserServiceImpl implements JwtUserService {
     private String generateAccessToken(String userId) {
         return jwtTokenProvider.createToken(userId, Collections.emptyList()).get("accessToken");
     }
+    @Override
+    public Map<String, Object> getUserInfo(String userId) {
+        User user = userRepository.findUserByUserId(userId)
+                .stream()
+                .findFirst()
+                .orElseThrow(null);
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("userId", user.getUserId());
+            userInfo.put("userName", user.getUserName());
+            userInfo.put("userBirthday", user.getUserBirthday());
+            userInfo.put("userPhone", user.getUserPhone());
+            userInfo.put("userEmail", user.getUserEmail());
+            return userInfo;
+
+    }
+
 }

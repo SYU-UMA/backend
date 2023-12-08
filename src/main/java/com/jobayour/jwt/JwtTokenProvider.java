@@ -73,9 +73,6 @@ public class JwtTokenProvider {
         token.put("accessToken", accessToken);
         token.put("refreshToken", refreshToken);
 
-       // 토큰 값 출력 삭제 예정
-        System.out.println(token);
-
         return token;
     }
 
@@ -101,7 +98,6 @@ public class JwtTokenProvider {
     }
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
-        System.out.println("validateToken : "+token);
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
