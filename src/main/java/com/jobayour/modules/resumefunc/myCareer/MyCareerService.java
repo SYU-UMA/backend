@@ -18,6 +18,9 @@ public class MyCareerService {
     // 나의 커리어 조회
     public MyCareerDTO findMyCareer(String userId, int resumeNum) {
         MyCareer myCareer = myCareerRepository.findByUserIdAndResumeNum(userId, resumeNum);
+        if (myCareer == null) {
+            return null; // 또는 적절한 처리를 수행
+        }
         MyCareerDTO myCareerDTO = modelMapper.map(myCareer, MyCareerDTO.class);
         return myCareerDTO;
     }
