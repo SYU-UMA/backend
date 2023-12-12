@@ -1,9 +1,6 @@
 package com.jobayour.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -38,17 +36,20 @@ public class JwtTokenProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    public String refreshTokenKey(String userId){
+    public String refreshTokenKey(String userId) {
         return "refreshToken:" + userId;
     }
+
     //레디스에 리프레쉬 토큰 저장
     private void saveRefreshToken(String userId, String refreshToken) {
-        redisTemplate.opsForValue().set(refreshTokenKey(userId), refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
     }
+
     // 레디스에서 리프레쉬토큰
     public String getRefreshToken(String userId) {
-        return (String) redisTemplate.opsForValue().get(refreshTokenKey(userId));
+        return (String) redisTemplate.opsForValue().get(userId);
     }
+
     // JWT 토큰 생성
     public Map<String, String> createToken(String userId, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userId);
@@ -89,19 +90,41 @@ public class JwtTokenProvider {
 
     // Request의 Header에서 token 값을 가져옵니다. "Authorization" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        // Request의 Header에서 "Authorization" 값을 가져옵니다.
+        String token = request.getHeader("Authorization");
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            return token.substring(7); // "Bearer " 접두사를 제거합니다.
+        }
+        return null;
     }
+
+    // 위의 조건을 만족하지 않으면 null을 반환합니다.
 
     //리프레쉬 토큰 삭제
     public void deleteRefreshToken(String userId) {
         redisTemplate.delete(refreshTokenKey(userId));
     }
+
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            // 토큰이 만료된 경우
+            System.out.println("만료된 토큰입니다: " + token);
+            return false;
+        } catch (MalformedJwtException e) {
+            // 토큰의 형식이 올바르지 않은 경우
+            System.out.println("손상된 토큰입니다: " + token);
+            return false;
+        } catch (IllegalArgumentException e) {
+            // 토큰이 비어 있거나 null인 경우
+            System.out.println("null입니다: " + token);
+            return false;
         } catch (Exception e) {
+            // 그 외의 예외 발생 시 로그를 출력하고 false를 반환합니다.
+            e.printStackTrace();
             return false;
         }
     }
