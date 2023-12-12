@@ -9,7 +9,10 @@ import java.util.List;
 public interface CareerRepository extends JpaRepository<Career, String> {
 
     List<Career> findByUserIdAndResumeNum(String userId, int resumeNum);
-    Career findByUserIdAndResumeNumAndUserCareerNum(String userid, int resumenum, int usercareermum);
+    Career findByUserIdAndResumeNumAndCareerNum(String userid, int resumenum, int careermum);
 
-    void deleteCareerByUserIdAndResumeNumAndUserCareerNum(String userId, int resumeNum, int userCareerNum);
+    void deleteCareerByUserIdAndResumeNumAndCareerNum(String userId, int resumeNum, int careerNum);
+
+    //최근 가장 최근 유저 경력 조회
+    Career findTopByUserIdOrderByCareerNumDesc(String id);
 }

@@ -1,7 +1,7 @@
 package com.jobayour.modules.resumefunc.skill;
 
 import com.jobayour.jwt.JwtTokenProvider;
-import com.jobayour.modules.resumefunc.resume.UserResume;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +20,11 @@ public class SkillController {
 
     // 유저 이력에 있는 스킬 조회
     @GetMapping("/list")
-    public List<SkillDTO> SkillList(@RequestBody UserResume userResume, HttpServletRequest request){
+    public List<SkillDTO> SkillList(@RequestBody ResumeBasic resumeBasic, HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        userResume.setUserId(userId);
-        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(userResume);
+        resumeBasic.setUserId(userId);
+        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic);
         return skillList;
     }
 

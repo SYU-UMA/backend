@@ -1,6 +1,6 @@
 package com.jobayour.modules.resumefunc.skill;
 
-import com.jobayour.modules.resumefunc.resume.UserResume;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +20,8 @@ public class SkillService {
     }
 
     // 유저이름과 num로 이력서에 저장한 스킬 조회
-    public List<SkillDTO> skillListbyIdAndUserId(UserResume userResume) {
-        List<Skill> skillList = skillRepository.findAllByUserIdAndResumeNum(userResume.getUserId(), userResume.getResumeNum());
+    public List<SkillDTO> skillListbyIdAndUserId(ResumeBasic resumeBasic) {
+        List<Skill> skillList = skillRepository.findAllByUserIdAndResumeNum(resumeBasic.getUserId(), resumeBasic.getResumeNum());
         List<SkillDTO> list = skillList.stream()
                 .sorted(Comparator.comparing(Skill::getSkillNum))
                 .map(skill -> modelMapper.map(skill,SkillDTO.class))

@@ -2,7 +2,7 @@ package com.jobayour.modules.resumefunc.career;
 
 
 import com.jobayour.jwt.JwtTokenProvider;
-import com.jobayour.modules.resumefunc.resume.UserResume;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +22,11 @@ public class CareerController {
 
     // 개인 경력 전체 조회(이력서 하나에 해당하는) 핸들러 메소드
     @GetMapping("/list")
-    public List<CareerDTO> UserCareerList(@RequestBody UserResume userResume, HttpServletRequest request){
+    public List<CareerDTO> UserCareerList(@RequestBody ResumeBasic resumeBasic, HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        userResume.setUserId(userId);
-        List<CareerDTO> UserCareerList = careerService.findCareerById(userResume);
+        resumeBasic.setUserId(userId);
+        List<CareerDTO> UserCareerList = careerService.findCareerById(resumeBasic);
         return UserCareerList;
     }
     // 개인 경력 한개 조회 핸들러 메소드

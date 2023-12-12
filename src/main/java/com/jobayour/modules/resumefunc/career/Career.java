@@ -9,55 +9,58 @@ import java.sql.Date;
 public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usercareernum")
-    private int userCareerNum;
+    @Column(name = "careernum")
+    private int CareerNum;
     @Column(name = "userid")
     private String userId;
     @Column(name = "resumenum")
     private int resumeNum;
-    @Column(name = "company")
-    private String company;
-    @Column(name = "working")
-    private String working;
-    @Column(name = "enterdt")
-    private Date enterDt;
-    @Column(name = "enddt")
-    private Date endDt;
-    @Column(name = "position")
-    private String position;
-    @Column(name = "companyopen")
-    private String companyOpen;
-    @Column(name = "responseibilities")
-    private String responseibilities;
+    @Column(name = "companyname")
+    private String companyName;
+    @Column(name = "retire")
+    private String retire;
+    @Column(name = "careerstart")
+    private Date careerStart;
+    @Column(name = "careerend")
+    private Date careerEnd;
+    @Column(name = "jobgradeduties")
+    private String jobGradeDuties;
+    @Column(name = "contents")
+    private String contents;
+    @Column(name = "deptname")
+    private String deptName;
     @Column(name = "salary")
-    private String salary;
+    private int salary;
+    @Column(name = "currency")
+    private String currency;
     @Column(name = "area")
     private String area;
 
     public Career() {
     }
 
-    public Career(int userCareerNum, String userId, int resumeNum, String company, String working, Date enterDt, Date endDt, String position, String companyOpen, String responseibilities, String salary, String area) {
-        this.userCareerNum = userCareerNum;
+    public Career(int careerNum, String userId, int resumeNum, String companyName, String retire, Date careerStart, Date careerEnd, String jobGradeDuties, String contents, String deptName, int salary, String currency, String area) {
+        CareerNum = careerNum;
         this.userId = userId;
         this.resumeNum = resumeNum;
-        this.company = company;
-        this.working = working;
-        this.enterDt = enterDt;
-        this.endDt = endDt;
-        this.position = position;
-        this.companyOpen = companyOpen;
-        this.responseibilities = responseibilities;
+        this.companyName = companyName;
+        this.retire = retire;
+        this.careerStart = careerStart;
+        this.careerEnd = careerEnd;
+        this.jobGradeDuties = jobGradeDuties;
+        this.contents = contents;
+        this.deptName = deptName;
         this.salary = salary;
+        this.currency = currency;
         this.area = area;
     }
 
-    public int getUserCareerNum() {
-        return userCareerNum;
+    public int getCareerNum() {
+        return CareerNum;
     }
 
-    public void setUserCareerNum(int userCareerNum) {
-        this.userCareerNum = userCareerNum;
+    public void setCareerNum(int careerNum) {
+        CareerNum = careerNum;
     }
 
     public String getUserId() {
@@ -76,68 +79,76 @@ public class Career {
         this.resumeNum = resumeNum;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getWorking() {
-        return working;
+    public String getRetire() {
+        return retire;
     }
 
-    public void setWorking(String working) {
-        this.working = working;
+    public void setRetire(String retire) {
+        this.retire = retire;
     }
 
-    public Date getEnterDt() {
-        return enterDt;
+    public Date getCareerStart() {
+        return careerStart;
     }
 
-    public void setEnterDt(Date enterDt) {
-        this.enterDt = enterDt;
+    public void setCareerStart(Date careerStart) {
+        this.careerStart = careerStart;
     }
 
-    public Date getEndDt() {
-        return endDt;
+    public Date getCareerEnd() {
+        return careerEnd;
     }
 
-    public void setEndDt(Date endDt) {
-        this.endDt = endDt;
+    public void setCareerEnd(Date careerEnd) {
+        this.careerEnd = careerEnd;
     }
 
-    public String getPosition() {
-        return position;
+    public String getJobGradeDuties() {
+        return jobGradeDuties;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setJobGradeDuties(String jobGradeDuties) {
+        this.jobGradeDuties = jobGradeDuties;
     }
 
-    public String getCompanyOpen() {
-        return companyOpen;
+    public String getContents() {
+        return contents;
     }
 
-    public void setCompanyOpen(String companyOpen) {
-        this.companyOpen = companyOpen;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
-    public String getResponseibilities() {
-        return responseibilities;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setResponseibilities(String responseibilities) {
-        this.responseibilities = responseibilities;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
-    public String getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getArea() {
@@ -151,17 +162,18 @@ public class Career {
     @Override
     public String toString() {
         return "Career{" +
-                "userCareerNum=" + userCareerNum +
+                "CareerNum=" + CareerNum +
                 ", userId='" + userId + '\'' +
                 ", resumeNum=" + resumeNum +
-                ", company='" + company + '\'' +
-                ", working='" + working + '\'' +
-                ", enterDt=" + enterDt +
-                ", endDt=" + endDt +
-                ", position='" + position + '\'' +
-                ", companyOpen='" + companyOpen + '\'' +
-                ", responseibilities='" + responseibilities + '\'' +
-                ", salary='" + salary + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", retire='" + retire + '\'' +
+                ", careerStart=" + careerStart +
+                ", careerEnd=" + careerEnd +
+                ", jobGradeDuties='" + jobGradeDuties + '\'' +
+                ", contents='" + contents + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", salary=" + salary +
+                ", currency='" + currency + '\'' +
                 ", area='" + area + '\'' +
                 '}';
     }
