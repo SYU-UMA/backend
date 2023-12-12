@@ -10,6 +10,8 @@ import com.jobayour.modules.resumefunc.career.CareerDTO;
 import com.jobayour.modules.resumefunc.career.CareerService;
 import com.jobayour.modules.resumefunc.resume.UserResume;
 import com.jobayour.modules.resumefunc.resume.UserResumeService;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasicService;
 import com.jobayour.modules.resumefunc.skill.Skill;
 import com.jobayour.modules.resumefunc.skill.SkillDTO;
 import com.jobayour.modules.resumefunc.skill.SkillService;
@@ -33,7 +35,8 @@ public class ChatgptSearchService {
 
     private final  CareerService careerService;                 //이력서 정보를 가져오기위한 서비스
 
-    private final UserResumeService userResumeService;          //자소서 정보를 가져오기위한 서비스
+    private final ResumeBasic resumeBasic;          //자소서 정보를 가져오기위한 서비스
+    private final ResumeBasicService resumeBasicService;
 
     private final SkillService skillService;
     public void test(HttpServletRequest request,CandidateKeyDTO candidateKeyDTO){       //***프론트에서 resumeNum과 userCareerNum을 매개변수로 받아와야 할듯***
@@ -45,29 +48,28 @@ public class ChatgptSearchService {
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
 
         //경력 리스트 가져오기
-        UserResume userResume = new UserResume();
-        userResume.setUserId(userId);
-        userResume.setResumeNum(candidateKeyDTO.getResumeNum());
-        List<CareerDTO> userCareerList = careerService.findCareerById(userResume);  //경력서 리스트
+        ResumeBasic resumeBasic1 = new ResumeBasic();
+        resumeBasic1.setUserId(userId);
+        resumeBasic1.setResumeNum(candidateKeyDTO.getResumeNum());
+        List<CareerDTO> userCareerList = careerService.findCareerById(resumeBasic1);  //경력서 리스트
 
         //경력 리스트 여러개 조회되는지 테스트 (회사이름으로 체크)
         for(int i = 0;i<userCareerList.size();i++){
-            System.out.println("다녀본 회사 : "+userCareerList.get(i).getCompany());
+            System.out.println("다녀본 회사 : "+userCareerList.get(i).getCompanyName());
         }
 
         //스킬 리스트 가져오기
-        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(userResume);
+        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic);
 
         //스킬 내용 여러가지 가져와서 체크하기
         for(int i = 0;i<skillList.size();i++){
             System.out.println("가지고 있는 skill : " + skillList.get(i).getSkill());
         }
 
-        //이력서 가져오기
-        UserResume resume = userResumeService.findResumeByIdAndnum(userId, candidateKeyDTO.getResumeNum());
+        //이력서 가져오기( My Career 부분 이용!)
 
         // 가져온 이력서 내용 체크하기
-        System.out.println(resume.getIntroContents());
+
 
 
 
