@@ -55,7 +55,7 @@ public class ChatgptSearchService {
         }
 
         //스킬 리스트 가져오기
-        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic1);
+        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic1.getResumeNum(), resumeBasic1.getUserId());
 
         //스킬 내용 여러가지 가져와서 체크하기
         for(int i = 0;i<skillList.size();i++){
