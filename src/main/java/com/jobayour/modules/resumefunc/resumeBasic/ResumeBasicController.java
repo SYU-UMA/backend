@@ -20,6 +20,8 @@ public class ResumeBasicController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+
+
     // 개인 유저 이력 전체 조회 핸들러 메소드
     @GetMapping("/list")
     public List<ResumeBasicDTO> UserResumeList(HttpServletRequest request){

@@ -4,6 +4,7 @@ package com.jobayour.modules.chatgpt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +22,9 @@ public class ChatgptController {
 
     //챗gpt 질문 응답 받는 페이지
     @PostMapping
-    public void test(HttpServletRequest request) {
+    public void test(HttpServletRequest request, @RequestBody CandidateKeyDTO candidateKeyDTO) {
 
-        chatgptSearchService.test(request);
+        chatgptSearchService.test(request,candidateKeyDTO);
 
 
     }
