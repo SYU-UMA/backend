@@ -77,5 +77,10 @@ public class UserResumeService {
     }
 
 
+    // 개인 최근 이력 넘버 조회
+    public int findRecentNum(String userId) {
+        UserResume userResume = userResumeRepository.findTopByUserId(userId);
+        return userResume.getResumeNum();
+    }
 }
 
