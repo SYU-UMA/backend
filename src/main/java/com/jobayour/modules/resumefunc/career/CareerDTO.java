@@ -5,43 +5,45 @@ import java.sql.Date;
 
 public class CareerDTO implements Serializable {
 
-    private int userCareerNum;
+    private int careerNum;
     private String userId;
     private int resumeNum;
-    private String company;
-    private String working;
-    private Date enterDt;
-    private Date endDt;
-    private String position;
-    private String companyOpen;
-    private String responseibilities;
-    private String salary;
+    private String companyName;
+    private String retire;
+    private Date careerStart;
+    private Date careerEnd;
+    private String jobGradeDuties;
+    private String contents;
+    private String deptName;
+    private int salary;
+    private String currency;
     private String area;
 
     public CareerDTO() {
     }
 
-    public CareerDTO(int userCareerNum, String userId, int resumeNum, String company, String working, Date enterDt, Date endDt, String position, String companyOpen, String responseibilities, String salary, String area) {
-        this.userCareerNum = userCareerNum;
+    public CareerDTO(int careerNum, String userId, int resumeNum, String companyName, String retire, Date careerStart, Date careerEnd, String jobGradeDuties, String contents, String deptName, int salary, String currency, String area) {
+        this.careerNum = careerNum;
         this.userId = userId;
         this.resumeNum = resumeNum;
-        this.company = company;
-        this.working = working;
-        this.enterDt = enterDt;
-        this.endDt = endDt;
-        this.position = position;
-        this.companyOpen = companyOpen;
-        this.responseibilities = responseibilities;
+        this.companyName = companyName;
+        this.retire = retire;
+        this.careerStart = careerStart;
+        this.careerEnd = careerEnd;
+        this.jobGradeDuties = jobGradeDuties;
+        this.contents = contents;
+        this.deptName = deptName;
         this.salary = salary;
+        this.currency = currency;
         this.area = area;
     }
 
-    public int getUserCareerNum() {
-        return userCareerNum;
+    public int getCareerNum() {
+        return careerNum;
     }
 
-    public void setUserCareerNum(int userCareerNum) {
-        this.userCareerNum = userCareerNum;
+    public void setCareerNum(int careerNum) {
+        this.careerNum = careerNum;
     }
 
     public String getUserId() {
@@ -60,68 +62,76 @@ public class CareerDTO implements Serializable {
         this.resumeNum = resumeNum;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getWorking() {
-        return working;
+    public String getRetire() {
+        return retire;
     }
 
-    public void setWorking(String working) {
-        this.working = working;
+    public void setRetire(String retire) {
+        this.retire = retire;
     }
 
-    public Date getEnterDt() {
-        return enterDt;
+    public Date getCareerStart() {
+        return careerStart;
     }
 
-    public void setEnterDt(Date enterDt) {
-        this.enterDt = enterDt;
+    public void setCareerStart(Date careerStart) {
+        this.careerStart = careerStart;
     }
 
-    public Date getEndDt() {
-        return endDt;
+    public Date getCareerEnd() {
+        return careerEnd;
     }
 
-    public void setEndDt(Date endDt) {
-        this.endDt = endDt;
+    public void setCareerEnd(Date careerEnd) {
+        this.careerEnd = careerEnd;
     }
 
-    public String getPosition() {
-        return position;
+    public String getJobGradeDuties() {
+        return jobGradeDuties;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setJobGradeDuties(String jobGradeDuties) {
+        this.jobGradeDuties = jobGradeDuties;
     }
 
-    public String getCompanyOpen() {
-        return companyOpen;
+    public String getContents() {
+        return contents;
     }
 
-    public void setCompanyOpen(String companyOpen) {
-        this.companyOpen = companyOpen;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
-    public String getResponseibilities() {
-        return responseibilities;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setResponseibilities(String responseibilities) {
-        this.responseibilities = responseibilities;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
-    public String getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getArea() {
@@ -135,17 +145,18 @@ public class CareerDTO implements Serializable {
     @Override
     public String toString() {
         return "CareerDTO{" +
-                "userCareerNum=" + userCareerNum +
+                "careerNum=" + careerNum +
                 ", userId='" + userId + '\'' +
                 ", resumeNum=" + resumeNum +
-                ", company='" + company + '\'' +
-                ", working='" + working + '\'' +
-                ", enterDt=" + enterDt +
-                ", endDt=" + endDt +
-                ", position='" + position + '\'' +
-                ", companyOpen='" + companyOpen + '\'' +
-                ", responseibilities='" + responseibilities + '\'' +
-                ", salary='" + salary + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", retire='" + retire + '\'' +
+                ", careerStart=" + careerStart +
+                ", careerEnd=" + careerEnd +
+                ", jobGradeDuties='" + jobGradeDuties + '\'' +
+                ", contents='" + contents + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", salary=" + salary +
+                ", currency='" + currency + '\'' +
                 ", area='" + area + '\'' +
                 '}';
     }
