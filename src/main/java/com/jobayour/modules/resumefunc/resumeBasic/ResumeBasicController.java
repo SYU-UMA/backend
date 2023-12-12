@@ -81,11 +81,11 @@ public class ResumeBasicController {
 
     // 개인 유저 이력 삭제 핸들러 메소드(이력이 사용된 것들 다 같이 삭제)
     @DeleteMapping("/delete")
-    public String UserResumeDelete(@RequestBody ResumeBasic resumeBasic, HttpServletRequest request){
+    public String UserResumeDelete(@RequestParam int resumeNum, HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        resumeBasic.setUserId(userId);
-        userResumeservice.deleteUserResume(resumeBasic);
+
+        userResumeservice.deleteUserResume(userId, resumeNum);
         return "개인 유저 이력삭제완료";
     }
 

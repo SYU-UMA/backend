@@ -80,7 +80,7 @@ public class CareerService {
     }
 
     @Transactional
-    public void deleteCareer(Career career) {
-        careerRepository.deleteCareerByUserIdAndResumeNumAndCareerNum(career.getUserId(), career.getResumeNum(), career.getCareerNum());
+    public void deleteCareer(String userId, int resumeNum, int careerNum) {
+        careerRepository.deleteCareerByUserIdAndResumeNumAndCareerNum(userId, resumeNum, careerNum);
     }
 }

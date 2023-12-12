@@ -53,7 +53,7 @@ public class MyCareerService {
     }
 
     @Transactional
-    public void deleteMyCareer(MyCareer myCareer) {
-        myCareerRepository.deleteByUserIdAndAndResumeNumAndMyCareerNum(myCareer.getUserId(), myCareer.getResumeNum(), myCareer.getMyCareerNum());
+    public void deleteMyCareer(String userId,int resumeNum,int myCareerNum) {
+        myCareerRepository.deleteByUserIdAndAndResumeNumAndMyCareerNum(userId, resumeNum, myCareerNum);
     }
 }
