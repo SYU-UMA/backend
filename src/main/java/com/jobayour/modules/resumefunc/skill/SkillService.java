@@ -57,8 +57,8 @@ public class SkillService {
 
     // 스킬 삭제
     @Transactional
-    public void deleteSkill(Skill skill) {
-        skillRepository.deleteBySkillNumAndUserIdAndResumeNum(skill.getSkillNum(), skill.getUserId(), skill.getResumeNum());
+    public void deleteSkill(String userId,int resumeNum,int skillNum) {
+        skillRepository.deleteBySkillNumAndUserIdAndResumeNum(skillNum, userId, resumeNum);
     }
 }
 

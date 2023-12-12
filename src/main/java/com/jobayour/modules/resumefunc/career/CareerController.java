@@ -60,12 +60,12 @@ public class CareerController {
     }
 
     // 경력 삭제 메소드
-    @DeleteMapping("/delete")
-    public String CareerDelete(@RequestBody Career career,HttpServletRequest request){
+    @DeleteMapping("/delete") /* career.getUserId(), career.getResumeNum(), career.getCareerNum()) */
+    public String CareerDelete(@RequestParam int resumeNum, @RequestParam int careerNum,HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        career.setUserId(userId);
-        careerService.deleteCareer(career);
+
+        careerService.deleteCareer(userId, resumeNum, careerNum);
         return "경력 삭제 완료";
     }
 }

@@ -53,11 +53,11 @@ public class SkillController {
 
     // 스킬 삭제 (아이디/스킬넘버/이력넘버)
     @DeleteMapping("/delete")
-    public String SkillDelete(@RequestBody Skill skill,HttpServletRequest request){
+    public String SkillDelete(@RequestParam int skillNum, @RequestParam int resumeNum,HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        skill.setUserId(userId);
-        skillService.deleteSkill(skill);
+
+        skillService.deleteSkill(userId, resumeNum, skillNum);
         return "삭제완료";
     }
 

@@ -47,11 +47,11 @@ public class MyCareerController {
         return "수정 완료";
     }
     @DeleteMapping("/delete")
-    public String MyCareerDelete(HttpServletRequest request, @RequestBody MyCareer myCareer){
+    public String MyCareerDelete(@RequestParam int resumeNum, @RequestParam int myCareerNum,HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);
-        myCareer.setUserId(userId);
-        myCareerService.deleteMyCareer(myCareer);
+
+        myCareerService.deleteMyCareer(userId, resumeNum, myCareerNum);
         return "삭제 완료";
     }
 }
