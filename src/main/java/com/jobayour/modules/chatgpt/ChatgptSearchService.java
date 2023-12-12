@@ -47,7 +47,7 @@ public class ChatgptSearchService {
         ResumeBasic resumeBasic1 = new ResumeBasic();
         resumeBasic1.setUserId(userId);
         resumeBasic1.setResumeNum(candidateKeyDTO.getResumeNum());
-        List<CareerDTO> userCareerList = careerService.findCareerById(resumeBasic1);  //경력서 리스트
+        List<CareerDTO> userCareerList = careerService.findCareerById(resumeBasic1.getUserId(), resumeBasic1.getResumeNum());  //경력서 리스트
 
         //경력 리스트 여러개 조회되는지 테스트 (회사이름으로 체크)
         for(int i = 0;i<userCareerList.size();i++){
