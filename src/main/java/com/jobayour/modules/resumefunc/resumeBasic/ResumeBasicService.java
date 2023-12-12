@@ -41,7 +41,7 @@ public class ResumeBasicService {
         resumeBasic.setUserId(resumeinfoBasic.getUserId());
         resumeBasic.setResumeName(resumeinfoBasic.getResumeName());
         resumeBasic.setCareer(resumeinfoBasic.getCareer());
-        resumeBasic.setUserAddress(resumeBasic.getUserAddress());
+        resumeBasic.setUserAddress(resumeinfoBasic.getUserAddress());
         resumeBasicRepository.save(modelMapper.map(resumeBasic, ResumeBasic.class));
     }
 
