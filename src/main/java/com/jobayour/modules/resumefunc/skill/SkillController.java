@@ -20,11 +20,11 @@ public class SkillController {
 
     // 유저 이력에 있는 스킬 조회
     @GetMapping("/list")
-    public List<SkillDTO> SkillList(@RequestBody ResumeBasic resumeBasic, HttpServletRequest request){
+    public List<SkillDTO> SkillList(@RequestParam int resumeNum, HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        resumeBasic.setUserId(userId);
-        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic);
+
+        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeNum, userId);
         return skillList;
     }
 

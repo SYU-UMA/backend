@@ -31,8 +31,8 @@ public class SkillService {
     }
 
     // 유저이름과 num로 이력서에 저장한 스킬 조회(전체)
-    public List<SkillDTO> skillListbyIdAndUserId(ResumeBasic resumeBasic) {
-        List<Skill> skillList = skillRepository.findAllByUserIdAndResumeNum(resumeBasic.getUserId(), resumeBasic.getResumeNum());
+    public List<SkillDTO> skillListbyIdAndUserId(int resumeNum, String userId) {
+        List<Skill> skillList = skillRepository.findAllByUserIdAndResumeNum(userId, resumeNum);
         List<SkillDTO> list = skillList.stream()
                 .sorted(Comparator.comparing(Skill::getSkillNum))
                 .map(skill -> modelMapper.map(skill,SkillDTO.class))
