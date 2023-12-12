@@ -26,6 +26,7 @@ public class MyCareerService {
     public void addMyCareer(MyCareer myCareer) {
         MyCareer myCareer1 = new MyCareer();
         myCareer1.setUserId(myCareer.getUserId());
+        myCareer1.setResumeNum(myCareer.getResumeNum());
         myCareer1.setJob(myCareer.getJob());
         myCareer1.setIntroduction(myCareer.getIntroduction());
         myCareer1.setUrl(myCareer.getUrl());
