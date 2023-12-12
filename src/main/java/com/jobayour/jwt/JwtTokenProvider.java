@@ -73,33 +73,32 @@ public class JwtTokenProvider {
         Map<String, String> token = new HashMap<>();
         token.put("accessToken", accessToken);
         token.put("refreshToken", refreshToken);
-        System.out.println("token= "+token);
-        System.out.println("access= "+accessToken);
-        System.out.println("ref= "+refreshToken);
 
         return token;
     }
 
     // JWT 토큰에서 인증 정보 조회
-    public Authentication getAuthentication(String acessToken) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(acessToken));
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // 토큰에서 회원 정보 추출
-    public String getUserId(String accessToken) {
-        System.out.println("토큰값 : " + accessToken);
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(accessToken).getBody().getSubject();
+    public String getUserId(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     // Request의 Header에서 token 값을 가져옵니다. "Authorization" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // "Bearer " 접두사를 제거합니다.
+        // Request의 Header에서 "Authorization" 값을 가져옵니다.
+        String token = request.getHeader("Authorization");
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            return token.substring(7); // "Bearer " 접두사를 제거합니다.
         }
         return null;
-    }
+        }
+
+        // 위의 조건을 만족하지 않으면 null을 반환합니다.
 
     //리프레쉬 토큰 삭제
     public void deleteRefreshToken(String userId) {
