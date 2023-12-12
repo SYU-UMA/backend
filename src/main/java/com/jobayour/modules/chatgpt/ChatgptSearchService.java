@@ -9,6 +9,7 @@ import com.jobayour.modules.resumefunc.career.CareerDTO;
 import com.jobayour.modules.resumefunc.career.CareerService;
 
 import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
+import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasicService;
 import com.jobayour.modules.resumefunc.skill.SkillDTO;
 import com.jobayour.modules.resumefunc.skill.SkillService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,9 @@ public class ChatgptSearchService {
 
     private final  CareerService careerService;                 //이력서 정보를 가져오기위한 서비스
 
+    private final ResumeBasicService resumeBasicService;        //resumeBasic 정보 가져오기 위한 서비스
 
-    private final SkillService skillService;
+    private final SkillService skillService;                    //스킬정보를 가져오기 위한 서비스
     public void test(HttpServletRequest request,CandidateKeyDTO candidateKeyDTO){       //***프론트에서 resumeNum과 userCareerNum을 매개변수로 받아와야 할듯***
 
         int checkNumber = 5;        // 5개의 질문과 답변을 저장하기위해 체크하는 정보
@@ -61,10 +63,9 @@ public class ChatgptSearchService {
         }
 
         //이력서 가져오기( My Career 부분 이용!)
-
+        ResumeBasic userResume = resumeBasicService.findResumeByIdAndnum(userId, candidateKeyDTO.getResumeNum());
         // 가져온 이력서 내용 체크하기
-
-
+        System.out.println(userResume.getResumeName());
 
 
         // quallist db조회해서 필요한 데이터 가져오기

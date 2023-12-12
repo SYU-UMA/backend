@@ -5,7 +5,7 @@ import javax.persistence.*;
 /* 2023-12-01
 *  이력서 엔티티*/
 @Entity
-@Table(name = "userresume")
+@Table(name = "resumebasic")
 public class ResumeBasic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
