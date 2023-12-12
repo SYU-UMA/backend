@@ -37,6 +37,8 @@ dependencies {
     implementation 'org.springframework.security:spring-security-test'
     // jwt 관련 라이브러리
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     // 엔티티에 저장된 값들을 dto에 간단하게 넘겨줄 수 있게 도와주는 라이브러리
     implementation 'org.modelmapper:modelmapper:3.1.1'
 

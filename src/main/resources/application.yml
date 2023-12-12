@@ -21,6 +21,11 @@ spring:
       hibernate:
         format_sql: true
 
+  redis:
+    host: localhost
+    port: 6379
+    password:
+
 chatgpt:
   api-key: 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
 server:
