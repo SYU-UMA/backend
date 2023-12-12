@@ -10,7 +10,7 @@ public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "careernum")
-    private int CareerNum;
+    private int careerNum;
     @Column(name = "userid")
     private String userId;
     @Column(name = "resumenum")
@@ -40,7 +40,7 @@ public class Career {
     }
 
     public Career(int careerNum, String userId, int resumeNum, String companyName, String retire, Date careerStart, Date careerEnd, String jobGradeDuties, String contents, String deptName, int salary, String currency, String area) {
-        CareerNum = careerNum;
+        this.careerNum = careerNum;
         this.userId = userId;
         this.resumeNum = resumeNum;
         this.companyName = companyName;
@@ -56,11 +56,11 @@ public class Career {
     }
 
     public int getCareerNum() {
-        return CareerNum;
+        return careerNum;
     }
 
     public void setCareerNum(int careerNum) {
-        CareerNum = careerNum;
+        this.careerNum = careerNum;
     }
 
     public String getUserId() {
@@ -162,7 +162,7 @@ public class Career {
     @Override
     public String toString() {
         return "Career{" +
-                "CareerNum=" + CareerNum +
+                "CareerNum=" + careerNum +
                 ", userId='" + userId + '\'' +
                 ", resumeNum=" + resumeNum +
                 ", companyName='" + companyName + '\'' +

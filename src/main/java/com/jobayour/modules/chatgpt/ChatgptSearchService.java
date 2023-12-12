@@ -5,14 +5,10 @@ import com.jobayour.modules.interview.InterviewService;
 import com.jobayour.modules.qualification.Qualification;
 import com.jobayour.jwt.JwtTokenProvider;
 import com.jobayour.modules.qualification.QualificationService;
-import com.jobayour.modules.resumefunc.career.Career;
 import com.jobayour.modules.resumefunc.career.CareerDTO;
 import com.jobayour.modules.resumefunc.career.CareerService;
-import com.jobayour.modules.resumefunc.resume.UserResume;
-import com.jobayour.modules.resumefunc.resume.UserResumeService;
+
 import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
-import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasicService;
-import com.jobayour.modules.resumefunc.skill.Skill;
 import com.jobayour.modules.resumefunc.skill.SkillDTO;
 import com.jobayour.modules.resumefunc.skill.SkillService;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +31,6 @@ public class ChatgptSearchService {
 
     private final  CareerService careerService;                 //이력서 정보를 가져오기위한 서비스
 
-    private final ResumeBasic resumeBasic;          //자소서 정보를 가져오기위한 서비스
-    private final ResumeBasicService resumeBasicService;
 
     private final SkillService skillService;
     public void test(HttpServletRequest request,CandidateKeyDTO candidateKeyDTO){       //***프론트에서 resumeNum과 userCareerNum을 매개변수로 받아와야 할듯***
@@ -59,7 +53,7 @@ public class ChatgptSearchService {
         }
 
         //스킬 리스트 가져오기
-        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic);
+        List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic1);
 
         //스킬 내용 여러가지 가져와서 체크하기
         for(int i = 0;i<skillList.size();i++){
