@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -43,11 +44,11 @@ public class JwtTokenProvider {
     }
     //레디스에 리프레쉬 토큰 저장
     private void saveRefreshToken(String userId, String refreshToken) {
-        redisTemplate.opsForValue().set(refreshTokenKey(userId), refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
     }
     // 레디스에서 리프레쉬토큰
     public String getRefreshToken(String userId) {
-        return (String) redisTemplate.opsForValue().get(refreshTokenKey(userId));
+        return (String) redisTemplate.opsForValue().get(userId);
     }
     // JWT 토큰 생성
     public Map<String, String> createToken(String userId, List<String> roles) {
@@ -72,24 +73,32 @@ public class JwtTokenProvider {
         Map<String, String> token = new HashMap<>();
         token.put("accessToken", accessToken);
         token.put("refreshToken", refreshToken);
+        System.out.println("token= "+token);
+        System.out.println("access= "+accessToken);
+        System.out.println("ref= "+refreshToken);
 
         return token;
     }
 
     // JWT 토큰에서 인증 정보 조회
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
+    public Authentication getAuthentication(String acessToken) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(acessToken));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // 토큰에서 회원 정보 추출
-    public String getUserId(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    public String getUserId(String accessToken) {
+        System.out.println("토큰값 : " + accessToken);
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(accessToken).getBody().getSubject();
     }
 
     // Request의 Header에서 token 값을 가져옵니다. "Authorization" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 접두사를 제거합니다.
+        }
+        return null;
     }
 
     //리프레쉬 토큰 삭제
