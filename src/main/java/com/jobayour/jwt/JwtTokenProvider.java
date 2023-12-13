@@ -36,19 +36,6 @@ public class JwtTokenProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    public String refreshTokenKey(String userId) {
-        return "refresh_token:" + userId;
-    }
-
-    //레디스에 리프레쉬 토큰 저장
-    private void saveRefreshToken(String userId, String refreshToken) {
-        redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
-    }
-
-    // 레디스에서 리프레쉬토큰
-    public String getRefreshToken(String userId) {
-        return (String) redisTemplate.opsForValue().get(userId);
-    }
 
     // JWT 토큰 생성
     public Map<String, String> createToken(String userId, List<String> roles) {
@@ -97,8 +84,17 @@ public class JwtTokenProvider {
         }
         return null;
     }
-
     // 위의 조건을 만족하지 않으면 null을 반환합니다.
+
+    //레디스에 리프레쉬 토큰 저장
+    private void saveRefreshToken(String userId, String refreshToken) {
+        redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
+    }
+
+    // 레디스에서 리프레쉬토큰
+    public String getRefreshToken(String userId) {
+        return (String) redisTemplate.opsForValue().get(userId);
+    }
 
     //리프레쉬 토큰 삭제
     public void deleteRefreshToken(String userId) {
