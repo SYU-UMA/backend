@@ -22,20 +22,20 @@ public class CareerController {
 
     // 개인 경력 전체 조회(이력서 하나에 해당하는) 핸들러 메소드
     @GetMapping("/list")
-    public List<CareerDTO> UserCareerList(@RequestBody ResumeBasic resumeBasic, HttpServletRequest request){
+    public List<CareerDTO> UserCareerList(@RequestParam int resumeNum, HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        resumeBasic.setUserId(userId);
-        List<CareerDTO> UserCareerList = careerService.findCareerById(resumeBasic);
+
+        List<CareerDTO> UserCareerList = careerService.findCareerById(userId, resumeNum);
         return UserCareerList;
     }
     // 개인 경력 한개 조회 핸들러 메소드
     @GetMapping("/list/num")
-    public CareerDTO UserCareerListByNum(@RequestBody Career career,HttpServletRequest request){
+    public CareerDTO UserCareerListByNum(@RequestParam int resumeNum,@RequestParam int careerNum,HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        career.setUserId(userId);
-        CareerDTO UserCareerList = careerService.findCareerByIdAndNum(career);
+
+        CareerDTO UserCareerList = careerService.findCareerByIdAndNum(userId, resumeNum, careerNum);
         return UserCareerList;
     }
 
@@ -60,12 +60,12 @@ public class CareerController {
     }
 
     // 경력 삭제 메소드
-    @DeleteMapping("/delete")
-    public String CareerDelete(@RequestBody Career career,HttpServletRequest request){
+    @DeleteMapping("/delete") /* career.getUserId(), career.getResumeNum(), career.getCareerNum()) */
+    public String CareerDelete(@RequestParam int resumeNum, @RequestParam int careerNum,HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
-        career.setUserId(userId);
-        careerService.deleteCareer(career);
+
+        careerService.deleteCareer(userId, resumeNum, careerNum);
         return "경력 삭제 완료";
     }
 }

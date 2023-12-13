@@ -18,6 +18,9 @@ public class MyCareerService {
     // 나의 커리어 조회
     public MyCareerDTO findMyCareer(String userId, int resumeNum) {
         MyCareer myCareer = myCareerRepository.findByUserIdAndResumeNum(userId, resumeNum);
+        if (myCareer == null) {
+            return null; // 또는 적절한 처리를 수행
+        }
         MyCareerDTO myCareerDTO = modelMapper.map(myCareer, MyCareerDTO.class);
         return myCareerDTO;
     }
@@ -26,6 +29,7 @@ public class MyCareerService {
     public void addMyCareer(MyCareer myCareer) {
         MyCareer myCareer1 = new MyCareer();
         myCareer1.setUserId(myCareer.getUserId());
+        myCareer1.setResumeNum(myCareer.getResumeNum());
         myCareer1.setJob(myCareer.getJob());
         myCareer1.setIntroduction(myCareer.getIntroduction());
         myCareer1.setUrl(myCareer.getUrl());
@@ -52,7 +56,7 @@ public class MyCareerService {
     }
 
     @Transactional
-    public void deleteMyCareer(MyCareer myCareer) {
-        myCareerRepository.deleteByUserIdAndAndResumeNumAndMyCareerNum(myCareer.getUserId(), myCareer.getResumeNum(), myCareer.getMyCareerNum());
+    public void deleteMyCareer(String userId,int resumeNum,int myCareerNum) {
+        myCareerRepository.deleteByUserIdAndAndResumeNumAndMyCareerNum(userId, resumeNum, myCareerNum);
     }
 }

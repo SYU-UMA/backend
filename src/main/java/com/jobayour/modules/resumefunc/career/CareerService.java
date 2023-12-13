@@ -29,8 +29,8 @@ public class CareerService {
 
 
     // 유저 아이디와 이력서번호 찾아서 해당하는 경력 전체 조회
-    public List<CareerDTO> findCareerById(ResumeBasic resumeBasic) {
-        List<Career> userCareerList = careerRepository.findByUserIdAndResumeNum(resumeBasic.getUserId(), resumeBasic.getResumeNum());
+    public List<CareerDTO> findCareerById(String userId, int resumeNum) {
+        List<Career> userCareerList = careerRepository.findByUserIdAndResumeNum(userId, resumeNum);
         List<CareerDTO> list = userCareerList.stream()
                 .sorted(Comparator.comparing(Career::getCareerNum))
                 .map(career -> modelMapper.map(career, CareerDTO.class))
@@ -38,17 +38,11 @@ public class CareerService {
         return list;
     }
 
-    // 유저 아이디와 이력서 번호, 경력 번호를 통해 경력 한개 조회
-    public CareerDTO findCareerByIdAndNum(Career career) {
-        Career userCareer = careerRepository.findByUserIdAndResumeNumAndCareerNum(career.getUserId(), career.getResumeNum(), career.getCareerNum());
+    // 유저 아이디와 이력서 번호, 경력 번호를 통해 경력 한개 조회(id,이력서번호,경력번호로만 조회하기)
+    public CareerDTO findCareerByIdAndNum(String userId, int careerNum, int resumeNum) {
+        Career userCareer = careerRepository.findByUserIdAndResumeNumAndCareerNum(userId, resumeNum,careerNum);
         CareerDTO list = modelMapper.map(userCareer, CareerDTO.class);
         return list;
-    }
-
-    //유저 아이디,경력번호, 이력서 번호찾아서 해당하는 경력 조회 한개 조회(id,이력서번호,경력번호로만 조회하기)
-    public Career findCareerByIdAndNum(String userId,int userCareerNum, int resumeNum){
-        Career userCareer = careerRepository.findByUserIdAndResumeNumAndCareerNum(userId,resumeNum,userCareerNum);
-        return userCareer;
     }
 
     // 유저 경력 추가
@@ -86,7 +80,7 @@ public class CareerService {
     }
 
     @Transactional
-    public void deleteCareer(Career career) {
-        careerRepository.deleteCareerByUserIdAndResumeNumAndCareerNum(career.getUserId(), career.getResumeNum(), career.getCareerNum());
+    public void deleteCareer(String userId, int resumeNum, int careerNum) {
+        careerRepository.deleteCareerByUserIdAndResumeNumAndCareerNum(userId, resumeNum, careerNum);
     }
 }

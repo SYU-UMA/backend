@@ -59,8 +59,8 @@ public class ResumeBasicService {
 
     // 개인 유저 이력 삭제
     @Transactional
-    public void deleteUserResume(ResumeBasic resumeBasic) {
-        resumeBasicRepository.deleteUserResumeByResumeNumAndAndUserId(resumeBasic.getResumeNum(), resumeBasic.getUserId());
+    public void deleteUserResume(String userId, int resumeNum) {
+        resumeBasicRepository.deleteUserResumeByResumeNumAndAndUserId(resumeNum, userId);
     }
 
     // 개인 최근 이력 넘버 조회
