@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class JwtTokenProvider {
     private String secretKey = "jobayourkey";
     private final UserDetailsService userDetailsService;
-    private long tokenValidTime = 300 * 60 * 1000L;
+    private long tokenValidTime = 300 * 60 * 1000L; //30분
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

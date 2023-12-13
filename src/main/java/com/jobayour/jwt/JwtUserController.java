@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -17,7 +18,8 @@ public class JwtUserController {
 
     @Autowired
     private JwtUserService jwtuserService;
-
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
@@ -39,13 +41,21 @@ public class JwtUserController {
         return new ResponseEntity<>("로그아웃", HttpStatus.OK);
     }
     @GetMapping("/info")
-    public ResponseEntity<Map<String, Object>> getUserInfo(@RequestParam String userId) {
+    public ResponseEntity<Map<String, Object>> getUserInfo(HttpServletRequest request) {
         try {
-            Map<String, Object> userInfo = jwtuserService.getUserInfo(userId);
-            return new ResponseEntity<>(userInfo, HttpStatus.OK);
+            // JWT 토큰 추출
+            String token = jwtTokenProvider.resolveToken(request);
+
+            if (token != null && jwtTokenProvider.validateToken(token)) {
+                String userId = jwtTokenProvider.getUserId(token);
+                Map<String, Object> userInfo = jwtuserService.getUserInfo(userId);
+                return new ResponseEntity<>(userInfo, HttpStatus.OK);
+            } else {
+                // 토큰이 유효하지 않은 경우
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (UsernameNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }
