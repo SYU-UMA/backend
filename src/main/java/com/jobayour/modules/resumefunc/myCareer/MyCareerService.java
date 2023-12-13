@@ -43,7 +43,7 @@ public class MyCareerService {
 
     @Transactional
     public void modifyMyCareer(MyCareer myCareer) {
-        MyCareer myCareer1 = myCareerRepository.findByUserIdAndResumeNum(myCareer.getUserId(), myCareer.getResumeNum());
+        MyCareer myCareer1 = myCareerRepository.findByUserIdAndResumeNumAndMyCareerNum(myCareer.getUserId(), myCareer.getResumeNum(), myCareer.getMyCareerNum());
         myCareer1.setUserId(myCareer.getUserId());
         myCareer1.setJob(myCareer.getJob());
         myCareer1.setIntroduction(myCareer.getIntroduction());
