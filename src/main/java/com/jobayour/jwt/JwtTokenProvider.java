@@ -37,7 +37,7 @@ public class JwtTokenProvider {
     }
 
     public String refreshTokenKey(String userId) {
-        return "refreshToken:" + userId;
+        return "refresh_token:" + userId;
     }
 
     //레디스에 리프레쉬 토큰 저장
@@ -102,7 +102,7 @@ public class JwtTokenProvider {
 
     //리프레쉬 토큰 삭제
     public void deleteRefreshToken(String userId) {
-        redisTemplate.delete(refreshTokenKey(userId));
+        boolean deleted = redisTemplate.delete(userId);
     }
 
     // 토큰의 유효성 + 만료일자 확인

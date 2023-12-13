@@ -45,12 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class) // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
         // + 토큰에 저장된 유저정보를 활용하여야 하기 때문에 CustomUserDetailService 클래스를 생성합니다.
-                .logout() // 로그아웃 설정 추가
+               /* .logout() // 로그아웃 설정 추가
                 .logoutUrl("/api/auth/logout") // 로그아웃 엔드포인트 지정
                 .logoutSuccessHandler((request, response, authentication) ->
                         response.setStatus(HttpServletResponse.SC_OK))
                 .permitAll()
-                .and()
+                .and()*/
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
