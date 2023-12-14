@@ -57,12 +57,12 @@ public class ChatgptSearchService {
         Qualification getData = qualificationService.findTopByIdOrderByQualificationsNumDesc(userId);
 
 
-        String combinedQuestions = "너는 이제 회사의 it분야 면접관이야."+"직무는 " + getData.getJob() + "이고 연차는 " + getData.getCareer()
-                + "이고 질문 수준은 최고5라고 하면 " + getData.getLevel() + "이고 자격요건은 " + getData.getRequirements() +
-                "일 때 너가 할 수 있는 예상면접질문 1가지와 답변까지 알려줘.  각 답변마다 \\를 꼭 넣어서 구분해줘 그리고 " +
-                "답변을 Q. 당신의 개발 경력과 관련된 자바 개발 경험은 무엇인가요? \\A.개발 경력은 5년 이상으로 자바 개발 관련 사업 개발 및 상세 설계, " +
-                "성능 분석 및 최적화, 시스템 운영과 관련된 경험이 있습니다. " +
-                "이런식으로 예상질문 뒤에는 꼭 ? 로 끝나게해주고 한글로알려줘 그리고 현재 나에 대한 정보를 알려줄게. ";
+        String combinedQuestions = "너는 이제 회사의 면접관이야."
+                +"회사에서 뽑으려고 하는 직무는 " + getData.getJob()
+                + "이고 뽑으려고 하는 연차는 " + getData.getCareer()
+                + "이상이고 너가 하려고 하는 질문 난이도는 최저1에서부터 최고5라고 하면 " + getData.getLevel()
+                + "이고 뽑으려고 하는 직무의 자격요건은 " + getData.getRequirements()+"이야"
+                + "그리고 현재 면접자 대한 정보를 알려줄게";
 
 
         //경력 리스트 가져오기
@@ -85,6 +85,8 @@ public class ChatgptSearchService {
             combinedQuestions+=careerPrompt;
         }
 
+        System.out.println("경력정보 : " + userCareerList); //테스트
+
         //스킬 리스트 가져오기
         List<SkillDTO> skillList = skillService.skillListbyIdAndUserId(resumeBasic1.getResumeNum(), resumeBasic1.getUserId());
 
@@ -99,6 +101,8 @@ public class ChatgptSearchService {
             skillPrompt += "내가 가지고 있는 skill은 " + skill + "이야.";
             combinedQuestions+="내가 가지고 있는 skill을 알려줄게"+skillPrompt;
         }
+
+        System.out.println("스킬정보 : " + skillList); //테스트
 
         //이력서 가져오기( My Career 부분 이용!)
         MyCareerDTO myCareer = myCareerService.findMyCareer(userId, candidateKeyDTO.getResumeNum());
@@ -115,18 +119,25 @@ public class ChatgptSearchService {
             myCareerPrompt+="";
         }
 
+        System.out.println("이력서정보 : " + myCareer); //테스트
+
         //resumeBasic 내용 가져오기
         ResumeBasic resumeBasic = resumeBasicService.findResumeByIdAndnum(userId, candidateKeyDTO.getResumeNum());
 
         //resumeBasic 내용 추가하기
         if(resumeBasicPrompt != null) {
-            resumeBasicPrompt += "현재 나의 개발자 연차는 " + resumeBasic.getCareer() + "의 연차를 가지고 있어.";
+            resumeBasicPrompt += "현재 나의 개발자로의 총 연차는 " + resumeBasic.getCareer() + "의 연차를 가지고 있어.";
             combinedQuestions += resumeBasicPrompt;
         }else{
             resumeBasicPrompt+="";
         }
 
-        combinedQuestions+="나의 정보를 가지고 질문과 답변을 알려줘";
+        System.out.println("resumeBasic정보 : " + resumeBasic); //테스트
+        System.out.println(combinedQuestions);      //테스트
+
+        combinedQuestions+="알려준 정보만을 가지고 너가 할 수 있는 예상면접질문 1가지와 답변까지 알려줘.  각 답변마다 \\를 꼭 넣어서 구분해줘 그리고 너가 나에게 줄 값의 예시를 알려줄게." +
+                "예시 : Q. 질문내용? \\A.답변내용. " +
+                "이런식으로 예상질문 뒤에는 꼭 ? 로 끝나게해주고 한글로알려줘.그리고 예시로 알려준 내용은 만들어줄 질문과 답변에 상관없는 내용이야 그러니까 답변과질문에 들어가지않게해";
 
 
         while(checkNumber>0){
