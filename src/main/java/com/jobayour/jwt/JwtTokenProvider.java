@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class JwtTokenProvider {
     private String secretKey = "jobayourkey";
     private final UserDetailsService userDetailsService;
-    private long tokenValidTime = 300 * 60 * 1000L; //30분
+    private long tokenValidTime = 2 * 60 * 1000L; // = x*분 x= 1 일경우 1분
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
 
         String refreshToken = Jwts.builder()
                 .setSubject(userId)
-                .setExpiration(new Date(now.getTime() + tokenValidTime * 2))
+                .setExpiration(new Date(now.getTime() + tokenValidTime * 200))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
@@ -67,6 +67,7 @@ public class JwtTokenProvider {
 
     //액세스토큰 생성
     public String generateAccessToken(String userId) {
+        System.out.println("generateAccessToken 실행합니다.");
         return createToken(userId, Collections.emptyList()).get("accessToken");
     }
 
@@ -115,16 +116,16 @@ public class JwtTokenProvider {
             return !claims.getBody().getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
             // 토큰이 만료
-            System.out.println("만료된 토큰입니다: " + token);
-
+            System.out.println("만료된 토큰입니다: 이건 아이디임 " + getUserId(token)+"토큰 시발아"+ token);
             // 만료된 토큰에서 사용자 ID 얻기
             String userId = getUserId(token);
-
             // 리프레시 토큰이 존재하는지 확인
             String refreshToken = getRefreshToken(userId);
+            System.out.println("getRefreshToken(userId)"+getRefreshToken(userId));
             if (refreshToken != null) {
                 // 리프레시 토큰이 존재하면 새로운 액세스 토큰 생성
-                String accessToken = generateAccessToken(userId);
+                String newAccessToken = generateAccessToken(userId);
+                System.out.println("새로운 액세스 토큰 생성: " + newAccessToken);
                 return true; // 유효한 토큰으로 간주
             } else {
                 return false; // 리프레시 토큰이 없으면 유효하지 않은 토큰
