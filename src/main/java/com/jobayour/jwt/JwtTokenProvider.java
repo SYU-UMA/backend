@@ -3,6 +3,7 @@ package com.jobayour.jwt;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,6 +65,11 @@ public class JwtTokenProvider {
         return token;
     }
 
+    //액세스토큰 생성
+    public String generateAccessToken(String userId) {
+        return createToken(userId, Collections.emptyList()).get("accessToken");
+    }
+
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
@@ -86,6 +92,7 @@ public class JwtTokenProvider {
     }
     // 위의 조건을 만족하지 않으면 null을 반환합니다.
 
+
     //레디스에 리프레쉬 토큰 저장
     private void saveRefreshToken(String userId, String refreshToken) {
         redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
@@ -107,14 +114,27 @@ public class JwtTokenProvider {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
-            // 토큰이 만료된 경우
+            // 토큰이 만료
             System.out.println("만료된 토큰입니다: " + token);
-            return false;
+
+            // 만료된 토큰에서 사용자 ID 얻기
+            String userId = getUserId(token);
+
+            // 리프레시 토큰이 존재하는지 확인
+            String refreshToken = getRefreshToken(userId);
+            if (refreshToken != null) {
+                // 리프레시 토큰이 존재하면 새로운 액세스 토큰 생성
+                String accessToken = generateAccessToken(userId);
+                return true; // 유효한 토큰으로 간주
+            } else {
+                return false; // 리프레시 토큰이 없으면 유효하지 않은 토큰
+            }
         } catch (MalformedJwtException e) {
             // 토큰의 형식이 올바르지 않은 경우
             System.out.println("손상된 토큰입니다: " + token);
             return false;
         } catch (IllegalArgumentException e) {
+
             // 토큰이 비어 있거나 null인 경우
             System.out.println("null입니다: " + token);
             return false;
@@ -122,6 +142,10 @@ public class JwtTokenProvider {
             // 그 외의 예외 발생 시 로그를 출력하고 false를 반환합니다.
             e.printStackTrace();
             return false;
+
+            // 리프레쉬 토큰 레디스에서 확인하는거 넣기
+            //access 토큰 만료시간을 체크 후, redis에 (blacklist) + accessToken,
+            // 계정, 만료기간을이 담긴 ValueOperation을 만들어 redis에 저장한다. redis에서 유저 refreshtoken 값을 삭제한다.
         }
     }
 }

@@ -5,9 +5,11 @@ import com.jobayour.modules.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,12 +51,10 @@ public class UserServiceImpl implements JwtUserService {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
-        return generateAccessToken(userDetails.getUsername());
+        return jwtTokenProvider.generateAccessToken(userDetails.getUsername());
     }
 
-    private String generateAccessToken(String userId) {
-        return jwtTokenProvider.createToken(userId, Collections.emptyList()).get("accessToken");
-    }
+
     @Override
     public Map<String, Object> getUserInfo(String userId) {
         User user = userRepository.findUserByUserId(userId)
@@ -70,5 +70,7 @@ public class UserServiceImpl implements JwtUserService {
             return userInfo;
 
     }
+
+
 
 }
