@@ -27,7 +27,7 @@ public class ChatgptController {
         chatgptNeedResumeService.test(request,candidateKeyDTO);
     }
 
-    @PostMapping("noresume")    //챗gpt 질문 응답 받는 컨트롤러(resumeNum 안받아오는 방식)
+    @PostMapping("/noresume")    //챗gpt 질문 응답 받는 컨트롤러(resumeNum 안받아오는 방식)
     public void test(HttpServletRequest request){
         chatgptNoResumeService.test(request);
     }
