@@ -32,13 +32,21 @@ public class JwtUserController {
     }
 
 
-
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
         jwtuserService.logoutUser(userId);
         return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+    }
+
+    @GetMapping("/findUserId")
+    public ResponseEntity<String> findUserId(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
+        String userId = jwtTokenProvider.getUserId(token);
+        if (userId != null){
+            return new ResponseEntity<>(userId, HttpStatus.OK);
+        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getUserInfo(HttpServletRequest request) {
