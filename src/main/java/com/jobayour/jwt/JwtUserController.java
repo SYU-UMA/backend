@@ -2,6 +2,7 @@ package com.jobayour.jwt;
 
 import com.jobayour.modules.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,8 @@ public class JwtUserController {
     private JwtUserService jwtuserService;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
@@ -31,13 +34,23 @@ public class JwtUserController {
         return jwtuserService.loginUser(user);
     }
 
-
-    @PostMapping("/logout")
+/*
+    @PostMapping("/logout2")
     public ResponseEntity<String> logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
         jwtuserService.logoutUser(userId);
         return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+    }*/
+    @PostMapping("logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null) {
+            jwtTokenProvider.deleteRefreshToken(jwtTokenProvider.getUserId(token));
+            jwtTokenProvider.addToBlacklist(token);
+            redisTemplate.delete(jwtTokenProvider.getUserId(token));
+      return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/findUserId")

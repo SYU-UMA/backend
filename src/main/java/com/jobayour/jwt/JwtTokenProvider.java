@@ -102,8 +102,19 @@ public class JwtTokenProvider {
 
     //리프레쉬 토큰 삭제
     public void deleteRefreshToken(String userId) {
-        boolean deleted = redisTemplate.delete(userId);
+        String refreshToken = getRefreshToken(userId);
+        if (refreshToken != null) {
+            addToBlacklist(refreshToken); // 리프레시 토큰을 블랙리스트에 추가
+            redisTemplate.delete(userId);
+        }
     }
+    public void addToBlacklist(String token) { //레디스에 토큰 밴 먹임
+        redisTemplate.opsForValue().set("blacklist:" + token, true, tokenValidTime, TimeUnit.MILLISECONDS);
+    }
+    public boolean isInBlacklist(String token) { //블랙리스트 있는지 확인
+        return redisTemplate.hasKey("blacklist:" + token);
+    }
+
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
