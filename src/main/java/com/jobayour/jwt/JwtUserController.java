@@ -79,4 +79,17 @@ public class JwtUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/modify")
+    public ResponseEntity<String> modifyUser(HttpServletRequest request, @RequestBody Map<String, String> updateData ){
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null && jwtTokenProvider.validateToken(token)){
+            String userId = jwtTokenProvider.getUserId(token);
+            jwtuserService.modifyUser(userId, updateData);
+            return new ResponseEntity<>("수정완료", HttpStatus.OK);
+        }   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
 }

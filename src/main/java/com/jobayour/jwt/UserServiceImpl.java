@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,4 +75,32 @@ public class UserServiceImpl implements JwtUserService {
 
     }
 
+    @Override
+    public Map<String, Object> modifyUser(String userId, Map<String, String> updateData) {
+        User user = userRepository.findById(userId)
+                .stream()
+                .findFirst()
+                .orElseThrow(null);
+
+        // 제공된 데이터를 기반으로 사용자 정보를 업데이트합니다.
+        if (updateData.containsKey("userName")) {
+            user.setUserName(updateData.get("userName"));
+        }
+        if (updateData.containsKey("userBirthday")) {
+            // userBirthday가 "yyyy-MM-dd" 형식으로 가정합니다.
+            user.setUserBirthday(Date.valueOf(updateData.get("userBirthday")));
+        }
+        if (updateData.containsKey("userPhone")) {
+            user.setUserPhone(updateData.get("userPhone"));
+        }
+        if (updateData.containsKey("userEmail")) {
+            user.setUserEmail(updateData.get("userEmail"));
+        }
+
+        // 업데이트된 사용자 정보를 데이터베이스에 저장합니다.
+        userRepository.save(user);
+
+        // 업데이트된 사용자 정보를 반환합니다.
+        return getUserInfo(userId);
+    }
 }
