@@ -1,7 +1,6 @@
 package com.jobayour.jwt;
 
 import com.jobayour.modules.user.User;
-import com.jobayour.modules.user.UserDTO;
 import com.jobayour.modules.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
