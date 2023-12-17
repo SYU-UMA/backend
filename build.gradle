@@ -42,6 +42,9 @@ dependencies {
     // 엔티티에 저장된 값들을 dto에 간단하게 넘겨줄 수 있게 도와주는 라이브러리
     implementation 'org.modelmapper:modelmapper:3.1.1'
 
+    // 크롤링을 하기 위해 필요한 라이브러리
+    implementation 'org.jsoup:jsoup:1.17.1'
+
 }
 
 
