@@ -2,6 +2,7 @@ package com.jobayour.jwt;
 
 import com.jobayour.modules.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,8 @@ public class JwtUserController {
     private JwtUserService jwtuserService;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
@@ -31,14 +34,31 @@ public class JwtUserController {
         return jwtuserService.loginUser(user);
     }
 
-
-
-    @PostMapping("/logout")
+/*
+    @PostMapping("/logout2")
     public ResponseEntity<String> logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
         jwtuserService.logoutUser(userId);
         return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+    }*/
+    @PostMapping("logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null) {
+            String userId = jwtTokenProvider.getUserId(token);
+            jwtTokenProvider.deleteRefreshToken(userId);
+      return new ResponseEntity<>("로그아웃", HttpStatus.OK);
+        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/findUserId")
+    public ResponseEntity<String> findUserId(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
+        String userId = jwtTokenProvider.getUserId(token);
+        if (userId != null){
+            return new ResponseEntity<>(userId, HttpStatus.OK);
+        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getUserInfo(HttpServletRequest request) {
@@ -58,4 +78,17 @@ public class JwtUserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/modify")
+    public ResponseEntity<String> modifyUser(HttpServletRequest request, @RequestBody Map<String, String> updateData ){
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null && jwtTokenProvider.validateToken(token)){
+            String userId = jwtTokenProvider.getUserId(token);
+            jwtuserService.modifyUser(userId, updateData);
+            return new ResponseEntity<>("수정완료", HttpStatus.OK);
+        }   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
 }
