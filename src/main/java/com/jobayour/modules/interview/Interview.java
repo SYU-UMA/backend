@@ -16,7 +16,6 @@ public class Interview {
     private String userId;
     @Column(name = "job")
     private String job;
-
     @Column(name = "resumenum")
     private int resumeNum;
     @Column(name = "interviewquestion")
@@ -35,12 +34,6 @@ public class Interview {
         this.interviewAnswer = interviewAnswer;
     }
 
-    public Interview(int qualificationsNumber, String userId, String interviewQuestion, String interviewAnswer) {
-        this.qualificationsNumber = qualificationsNumber;
-        this.userId = userId;
-        this.interviewQuestion = interviewQuestion;
-        this.interviewAnswer = interviewAnswer;
-    }
 
     public Interview(int interviewNumber, int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
         this.interviewNumber = interviewNumber;
@@ -48,6 +41,27 @@ public class Interview {
         this.userId = userId;
         this.job = job;
         this.resumeNum = resumeNum;
+        this.interviewQuestion = interviewQuestion;
+        this.interviewAnswer = interviewAnswer;
+    }
+
+    //이력서 넣고 gpt 검색할 경우
+    public Interview(int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
+        this.job = job;
+        this.resumeNum = resumeNum;
+        this.interviewQuestion = interviewQuestion;
+        this.interviewAnswer = interviewAnswer;
+    }
+
+    //이력서 없이 gpt 검색할 경우
+
+
+    public Interview(int qualificationsNumber, String userId, String job, String interviewQuestion, String interviewAnswer) {
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
+        this.job = job;
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }

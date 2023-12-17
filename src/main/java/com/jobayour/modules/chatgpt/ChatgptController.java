@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 
 
-// ****** 하나의 질문과 답변만 가져오는 test용 컨트롤러 + 이력서 내용 첨가 (현재 세팅은 신입 관련 ) ******
 @RequiredArgsConstructor
 @RestController
 @Slf4j
