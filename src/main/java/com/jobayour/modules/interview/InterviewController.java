@@ -30,7 +30,7 @@ public class InterviewController {
 
     // 이력서 별 조회
     @GetMapping("/list/resumeNum")
-    public List<InterviewDTO> resumeNuminterviewList(HttpServletRequest request,int resumeNum){
+    public List<InterviewDTO> resumeNuminterviewList(HttpServletRequest request,@RequestParam int resumeNum){
         String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
         String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
         List<InterviewDTO> interviewList = interviewService.findInterviewByUserIdAndResumeNum(userId, resumeNum);
