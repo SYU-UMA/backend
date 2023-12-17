@@ -28,6 +28,37 @@ public class InterviewController {
         return interviewList;
     }
 
+    // 이력서 별 조회
+    @GetMapping("/list/resumeNum")
+    public List<InterviewDTO> resumeNuminterviewList(HttpServletRequest request,int resumeNum){
+        String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
+        String userId = jwtTokenProvider.getUserId(token);      //jwt토큰에서 userId추출
+        List<InterviewDTO> interviewList = interviewService.findInterviewByUserIdAndResumeNum(userId, resumeNum);
+        return interviewList;
+    }
+
+    // 인터뷰 리스트 백엔드 엔지니어 최근 5개 전체 조회
+    @GetMapping("/recentlist/back")
+    public List<InterviewDTO> recentbackinterviewList(){
+        List<InterviewDTO> interviewList = interviewService.findTop5ByJobOrderByInterviewNumberDesc("백엔드 엔지니어");
+        return interviewList;
+    }
+    // 인터뷰 리스트 프론트 엔지니어 최근 5개 전체 조회
+    @GetMapping("/recentlist/front")
+    public List<InterviewDTO> recentfrontinterviewList(){
+        List<InterviewDTO> interviewList = interviewService.findTop5ByJobOrderByInterviewNumberDesc("프론트엔드 엔지니어");
+        return interviewList;
+    }
+    // 인터뷰 리스트 데이터 엔지니어 최근 5개 전체 조회
+    @GetMapping("/recentlist/data")
+    public List<InterviewDTO> recentdatainterviewList(){
+        List<InterviewDTO> interviewList = interviewService.findTop5ByJobOrderByInterviewNumberDesc("데이터 엔지니어");
+        return interviewList;
+    }
+
+
+
+
     // 최근 인터뷰 5개 리스트 조회 (인터뷰번호 오름차순으로 정렬후 5개 가져오기 방식)
     @GetMapping("/recentlist")
     public List<InterviewDTO> recentinterviewList(HttpServletRequest request){

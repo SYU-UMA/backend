@@ -8,6 +8,8 @@ public class InterviewDTO implements Serializable {
     private int interviewNumber;    //인터뷰번호 auto
     private int qualificationsNumber;  //자격번호
     private String userId;              //아이디
+    private String job;
+    private int resumeNum;
     private String interviewQuestion;   // 질문
     private String interviewAnswer;     // 답변
 
@@ -29,6 +31,17 @@ public class InterviewDTO implements Serializable {
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }
+
+    public InterviewDTO(int interviewNumber, int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
+        this.interviewNumber = interviewNumber;
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
+        this.job = job;
+        this.resumeNum = resumeNum;
+        this.interviewQuestion = interviewQuestion;
+        this.interviewAnswer = interviewAnswer;
+    }
+
 
     public int getInterviewNumber() {
         return interviewNumber;
@@ -54,6 +67,22 @@ public class InterviewDTO implements Serializable {
         this.userId = userId;
     }
 
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public int getResumeNum() {
+        return resumeNum;
+    }
+
+    public void setResumeNum(int resumeNum) {
+        this.resumeNum = resumeNum;
+    }
+
     public String getInterviewQuestion() {
         return interviewQuestion;
     }
@@ -76,6 +105,8 @@ public class InterviewDTO implements Serializable {
                 "interviewNumber=" + interviewNumber +
                 ", qualificationsNumber=" + qualificationsNumber +
                 ", userId='" + userId + '\'' +
+                ", job='" + job + '\'' +
+                ", resumeNum=" + resumeNum +
                 ", interviewQuestion='" + interviewQuestion + '\'' +
                 ", interviewAnswer='" + interviewAnswer + '\'' +
                 '}';
