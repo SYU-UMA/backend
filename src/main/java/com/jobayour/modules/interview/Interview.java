@@ -14,6 +14,11 @@ public class Interview {
     private int qualificationsNumber;
     @Column(name = "userid")
     private String userId;
+    @Column(name = "job")
+    private String job;
+
+    @Column(name = "resumenum")
+    private int resumeNum;
     @Column(name = "interviewquestion")
     private String interviewQuestion;
     @Column(name = "interviewanswer")
@@ -33,6 +38,16 @@ public class Interview {
     public Interview(int qualificationsNumber, String userId, String interviewQuestion, String interviewAnswer) {
         this.qualificationsNumber = qualificationsNumber;
         this.userId = userId;
+        this.interviewQuestion = interviewQuestion;
+        this.interviewAnswer = interviewAnswer;
+    }
+
+    public Interview(int interviewNumber, int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
+        this.interviewNumber = interviewNumber;
+        this.qualificationsNumber = qualificationsNumber;
+        this.userId = userId;
+        this.job = job;
+        this.resumeNum = resumeNum;
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }
@@ -61,6 +76,22 @@ public class Interview {
         this.userId = userId;
     }
 
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public int getResumeNum() {
+        return resumeNum;
+    }
+
+    public void setResumeNum(int resumeNum) {
+        this.resumeNum = resumeNum;
+    }
+
     public String getInterviewQuestion() {
         return interviewQuestion;
     }
@@ -83,6 +114,8 @@ public class Interview {
                 "interviewNumber=" + interviewNumber +
                 ", qualificationsNumber=" + qualificationsNumber +
                 ", userId='" + userId + '\'' +
+                ", job='" + job + '\'' +
+                ", resumeNum='" + resumeNum + '\'' +
                 ", interviewQuestion='" + interviewQuestion + '\'' +
                 ", interviewAnswer='" + interviewAnswer + '\'' +
                 '}';

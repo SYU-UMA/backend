@@ -10,8 +10,11 @@ import java.util.List;
 public interface InterviewRepository extends JpaRepository<Interview, String> {
 
     List<Interview> findInterviewByUserId(String id);
+    List<Interview> findInterviewByUserIdAndResumeNum(String id,int num);
 
     List<Interview> findTop5ByUserIdOrderByInterviewNumberDesc(String id);
+
+    List<Interview> findTop5ByJobOrderByInterviewNumberDesc(String job);
 
     void deleteByUserIdAndInterviewNumber(String id, int interviewNumber);
 }
