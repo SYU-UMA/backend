@@ -111,8 +111,8 @@ public class JwtTokenProvider {
     public void addToBlacklist(String token) { //레디스에 토큰 밴 먹임
         redisTemplate.opsForValue().set("blacklist:" + token, true, tokenValidTime, TimeUnit.MILLISECONDS);
     }
-    public boolean isInBlacklist(String token) { //블랙리스트 있는지 확인
-        return redisTemplate.hasKey("blacklist:" + token);
+    public boolean isInBlacklist(String refreshToken) { //블랙리스트 있는지 확인
+        return redisTemplate.hasKey("blacklist:" + refreshToken);
     }
 
 
