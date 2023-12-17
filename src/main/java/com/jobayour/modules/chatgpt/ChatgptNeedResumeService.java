@@ -150,7 +150,7 @@ public class ChatgptNeedResumeService {
                     if (questionAndAnswerDTO.isQuestionAndAnswerValid()) {
 
                         Interview interview = new Interview(getData.getQualificationsNumber()
-                                , userId, questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
+                                , userId, getData.getJob(), candidateKeyDTO.getResumeNum(), questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
 
                         interviewService.addInterview(interview);
 

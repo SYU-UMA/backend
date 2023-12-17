@@ -53,6 +53,8 @@ public class InterviewService {
         interview1.setUserId(interview.getUserId());
         interview1.setInterviewAnswer(interview.getInterviewAnswer());
         interview1.setInterviewQuestion(interview.getInterviewQuestion());
+        interview1.setJob(interview.getJob());
+        interview1.setResumeNum(interview.getResumeNum());
         // 아이디에 맞는 최근 qualificationsNumber 세팅
         Qualification qual = qualificationRepository.findTopByUserIdOrderByQualificationsNumberDesc(interview.getUserId());
         interview1.setQualificationsNumber(qual.getQualificationsNumber());
@@ -67,4 +69,23 @@ public class InterviewService {
     }
 
 
+    // 최근 5개 전체 조회 (JOB직군에 따라)
+
+    public List<InterviewDTO> findTop5ByJobOrderByInterviewNumberDesc(String job) {
+        List<Interview> interviewList = interviewRepository.findTop5ByJobOrderByInterviewNumberDesc(job);
+        List<InterviewDTO> list = interviewList.stream()
+                .sorted(Comparator.comparing(Interview::getQualificationsNumber))
+                .map(interview -> modelMapper.map(interview, InterviewDTO.class))
+                .collect(Collectors.toList());
+        return list;
+    }
+
+    public List<InterviewDTO> findInterviewByUserIdAndResumeNum(String userId, int resumeNum) {
+        List<Interview> interviewList = interviewRepository.findInterviewByUserIdAndResumeNum(userId, resumeNum);
+        List<InterviewDTO> list = interviewList.stream()
+                .sorted(Comparator.comparing(Interview::getQualificationsNumber))
+                .map(interview -> modelMapper.map(interview, InterviewDTO.class))
+                .collect(Collectors.toList());
+        return list;
+    }
 }
