@@ -46,9 +46,8 @@ public class JwtUserController {
     public ResponseEntity<String> logout(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request);
         if (token != null) {
-            jwtTokenProvider.deleteRefreshToken(jwtTokenProvider.getUserId(token));
-            jwtTokenProvider.addToBlacklist(token);
-            redisTemplate.delete(jwtTokenProvider.getUserId(token));
+            String userId = jwtTokenProvider.getUserId(token);
+            jwtTokenProvider.deleteRefreshToken(userId);
       return new ResponseEntity<>("로그아웃", HttpStatus.OK);
         } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

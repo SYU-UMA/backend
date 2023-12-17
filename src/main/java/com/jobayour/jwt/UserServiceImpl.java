@@ -77,7 +77,7 @@ public class UserServiceImpl implements JwtUserService {
 
     @Override
     public Map<String, Object> modifyUser(String userId, Map<String, String> updateData) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findUserByUserId(userId)
                 .stream()
                 .findFirst()
                 .orElseThrow(null);
