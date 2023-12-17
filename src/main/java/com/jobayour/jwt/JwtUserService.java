@@ -8,7 +8,6 @@ import java.util.Map;
 public interface JwtUserService {
     User registerUser(User user);
     String loginUser(User user);
-    void logoutUser(String userId);
     Map<String, Object> getUserInfo(String userId) throws UsernameNotFoundException;
     Map<String, Object> modifyUser(String userId, Map<String, String> updateData);
 

@@ -25,15 +25,6 @@ public class UserServiceImpl implements JwtUserService {
     private RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void logoutUser(String userId) {
-        String refreshToken = jwtTokenProvider.getRefreshToken(userId);
-        if (refreshToken != null) {
-            // 리프레시 토큰이 존재하면 폐기
-            jwtTokenProvider.deleteRefreshToken(userId); // 변경된 부분
-        }
-        redisTemplate.delete(userId); // 변경된 부분
-    }
-    @Override
     public User registerUser(User user) {
         if (userRepository.existsById(user.getUserId())) {
             //동일 ID일 시

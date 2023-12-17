@@ -34,14 +34,6 @@ public class JwtUserController {
         return jwtuserService.loginUser(user);
     }
 
-/*
-    @PostMapping("/logout2")
-    public ResponseEntity<String> logout() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
-        jwtuserService.logoutUser(userId);
-        return new ResponseEntity<>("로그아웃", HttpStatus.OK);
-    }*/
     @PostMapping("logout")
     public ResponseEntity<String> logout(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request);
