@@ -96,6 +96,9 @@ public class UserServiceImpl implements JwtUserService {
         if (updateData.containsKey("userEmail")) {
             user.setUserEmail(updateData.get("userEmail"));
         }
+        if (updateData.containsKey("userPwd")){
+            user.setUserPwd(updateData.get("userPwd"));
+        }
 
         // 업데이트된 사용자 정보를 데이터베이스에 저장합니다.
         userRepository.save(user);
