@@ -7,7 +7,6 @@ import com.jobayour.jwt.JwtTokenProvider;
 import com.jobayour.modules.qualification.QualificationService;
 import com.jobayour.modules.resumefunc.career.CareerDTO;
 import com.jobayour.modules.resumefunc.career.CareerService;
-
 import com.jobayour.modules.resumefunc.myCareer.MyCareerDTO;
 import com.jobayour.modules.resumefunc.myCareer.MyCareerService;
 import com.jobayour.modules.resumefunc.resumeBasic.ResumeBasic;
@@ -16,7 +15,6 @@ import com.jobayour.modules.resumefunc.skill.SkillDTO;
 import com.jobayour.modules.resumefunc.skill.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -131,14 +129,11 @@ public class ChatgptNeedResumeService {
             resumeBasicPrompt+="";
         }
 
-        System.out.println("resumeBasic정보 : " + resumeBasic); //테스트
-        System.out.println(combinedQuestions);      //테스트
-
         combinedQuestions+="알려준 정보만을 가지고 너가 할 수 있는 예상면접질문 1가지와 답변까지 알려줘.  질문과 답변사이에 \\를 꼭 넣어서 구분해줘 그리고 너가 나에게 줄 값의 형태를 알려줄게." +
                 "Q.질문내용 ? A.답변내용." +
                 "이런식으로 예상질문 뒤에는 꼭 반드시 ? 로 끝나게해주고 한글로알려줘.그리고 예시로 알려준 내용은 만들어줄 질문과 답변에 상관없는 내용이야 그러니까 질문과답변에 들어가지않게해.";
 
-
+        System.out.println(combinedQuestions);
         while(checkNumber>0){
 
             String response = chatService.getChatResponse(combinedQuestions);
@@ -148,7 +143,6 @@ public class ChatgptNeedResumeService {
             if(pairs.length >= 2) {
                 String question = pairs[0].trim();
                 String answer = pairs[1].trim();
-//                answer = answer.replaceAll("\\\\", "");
                 if (question.startsWith("Q") && answer.startsWith("A")) {
                     QuestionAndAnswerDTO questionAndAnswerDTO = new QuestionAndAnswerDTO(question, answer);
 
@@ -169,7 +163,4 @@ public class ChatgptNeedResumeService {
         }
 
     }
-
-
-
 }

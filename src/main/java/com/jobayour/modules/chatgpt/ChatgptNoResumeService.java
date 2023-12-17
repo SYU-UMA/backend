@@ -52,7 +52,6 @@ public class ChatgptNoResumeService {
             if(pairs.length >= 2) {
                 String question = pairs[0].trim();
                 String answer = pairs[1].trim();
-//                answer = answer.replaceAll("\\\\", "");
                 if (question.startsWith("Q") && answer.startsWith("A")) {
                     QuestionAndAnswerDTO questionAndAnswerDTO = new QuestionAndAnswerDTO(question, answer);
 
@@ -60,7 +59,7 @@ public class ChatgptNoResumeService {
                     if (questionAndAnswerDTO.isQuestionAndAnswerValid()) {
 
                         Interview interview = new Interview(getData.getQualificationsNumber()
-                                , userId, questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
+                                , userId,questionAndAnswerDTO.getQuestion(), questionAndAnswerDTO.getAnswer());
 
                         interviewService.addInterview(interview);
 
