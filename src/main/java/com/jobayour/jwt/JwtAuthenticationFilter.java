@@ -1,10 +1,7 @@
 package com.jobayour.jwt;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -21,19 +18,16 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
-
-    private final RedisTemplate<String, String> redisTemplate;
+    private final RedisTemplate redisTemplate;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 헤더에서 JWT 를 받아옵니다.
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
-
         if (token != null && jwtTokenProvider.validateToken(token)) {
 
             String userId = jwtTokenProvider.getUserId(token);
             String refreshToken = jwtTokenProvider.getRefreshToken(userId);
-            System.out.println("리프레시토큰 값 = " + refreshToken);
             if (refreshToken != null) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -42,8 +36,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-
-
         } chain.doFilter(request, response);
     }
 }

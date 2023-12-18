@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +21,8 @@ public class JwtUserController {
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private JwtExceptionFilter jwtExceptionFilter;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
@@ -34,14 +34,6 @@ public class JwtUserController {
         return jwtuserService.loginUser(user);
     }
 
-/*
-    @PostMapping("/logout2")
-    public ResponseEntity<String> logout() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
-        jwtuserService.logoutUser(userId);
-        return new ResponseEntity<>("로그아웃", HttpStatus.OK);
-    }*/
     @PostMapping("logout")
     public ResponseEntity<String> logout(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request);

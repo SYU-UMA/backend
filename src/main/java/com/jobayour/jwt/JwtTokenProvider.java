@@ -1,6 +1,7 @@
 package com.jobayour.jwt;
 
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 // 토큰을 생성하고 검증하는 클래스입니다.
 // 해당 컴포넌트는 필터클래스에서 사전 검증을 거칩니다.
 @Component
+@Slf4j
 public class JwtTokenProvider {
     private String secretKey = "jobayourkey";
     private final UserDetailsService userDetailsService;
@@ -30,16 +32,10 @@ public class JwtTokenProvider {
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
-
     // 생성자 주입을 통한 UserDetailsService 설정
     public JwtTokenProvider(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
-    public String refreshTokenKey(String userId) {
-        return "refresh_token:" + userId;
-    }
-
     //레디스에 리프레쉬 토큰 저장
     private void saveRefreshToken(String userId, String refreshToken) {
         redisTemplate.opsForValue().set(userId, refreshToken, tokenValidTime * 2, TimeUnit.MILLISECONDS);
@@ -111,32 +107,25 @@ public class JwtTokenProvider {
     public void addToBlacklist(String token) { //레디스에 토큰 밴 먹임
         redisTemplate.opsForValue().set("blacklist:" + token, true, tokenValidTime, TimeUnit.MILLISECONDS);
     }
-    public boolean isInBlacklist(String refreshToken) { //블랙리스트 있는지 확인
-        return redisTemplate.hasKey("blacklist:" + refreshToken);
-    }
-
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-            // 토큰이 만료된 경우
-            System.out.println("만료된 토큰입니다: " + token);
-            return false;
-        } catch (MalformedJwtException e) {
-            // 토큰의 형식이 올바르지 않은 경우
-            System.out.println("손상된 토큰입니다: " + token);
-            return false;
-        } catch (IllegalArgumentException e) {
-            // 토큰이 비어 있거나 null인 경우
-            System.out.println("null입니다: " + token);
-            return false;
-        } catch (Exception e) {
-            // 그 외의 예외 발생 시 로그를 출력하고 false를 반환합니다.
-            e.printStackTrace();
-            return false;
-        }
+       try {
+           Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+
+           return !claims.getBody().getExpiration().before(new Date());
+       }catch (SignatureException e) {
+           log.info("SignatureException");
+           throw new JwtException(ErrorMessage.WRONG_TYPE_TOKEN.getMsg());
+       } catch (MalformedJwtException e) {
+           log.info("MalformedJwtException");
+           throw new JwtException(ErrorMessage.UNSUPPORTED_TOKEN.getMsg());
+       } catch (ExpiredJwtException e) {
+           log.info("ExpiredJwtException");
+           throw new JwtException(ErrorMessage.EXPIRED_TOKEN.getMsg());
+       } catch (IllegalArgumentException e) {
+           log.info("IllegalArgumentException");
+           throw new JwtException(ErrorMessage.UNKNOWN_ERROR.getMsg());
+       }
     }
 }
