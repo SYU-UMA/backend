@@ -23,6 +23,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         } catch (JwtException ex) {
             String message = ex.getMessage();
+
             if(ErrorMessage.UNKNOWN_ERROR.getMsg().equals(message)) {
                 setResponse(response, ErrorMessage.UNKNOWN_ERROR);
             }

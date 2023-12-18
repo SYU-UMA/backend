@@ -35,52 +35,37 @@ public class JwtUserController {
     }
 
     @PostMapping("logout")
-    public ResponseEntity<String> logout(HttpServletRequest request){
+    public void logout(HttpServletRequest request) {
         String token = jwtTokenProvider.resolveToken(request);
         if (token != null) {
             String userId = jwtTokenProvider.getUserId(token);
             jwtTokenProvider.deleteRefreshToken(userId);
-      return new ResponseEntity<>("로그아웃", HttpStatus.OK);
-        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/findUserId")
-    public ResponseEntity<String> findUserId(HttpServletRequest request) {
-        String token = jwtTokenProvider.resolveToken(request); //HttpServletRequest에서 jwt토큰 추출
-        String userId = jwtTokenProvider.getUserId(token);
-        if (userId != null){
-            return new ResponseEntity<>(userId, HttpStatus.OK);
-        } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    @GetMapping("/info")
-    public ResponseEntity<Map<String, Object>> getUserInfo(HttpServletRequest request) {
-        try {
-            // JWT 토큰 추출
-            String token = jwtTokenProvider.resolveToken(request);
-
-            if (token != null && jwtTokenProvider.validateToken(token)) {
-                String userId = jwtTokenProvider.getUserId(token);
-                Map<String, Object> userInfo = jwtuserService.getUserInfo(userId);
-                return new ResponseEntity<>(userInfo, HttpStatus.OK);
-            } else {
-                // 토큰이 유효하지 않은 경우
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-        } catch (UsernameNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PutMapping("/modify")
-    public ResponseEntity<String> modifyUser(HttpServletRequest request, @RequestBody Map<String, String> updateData ){
+    @GetMapping("/findUserId")
+    public String findUserId(HttpServletRequest request) {
         String token = jwtTokenProvider.resolveToken(request);
-        if (token != null && jwtTokenProvider.validateToken(token)){
-            String userId = jwtTokenProvider.getUserId(token);
-            jwtuserService.modifyUser(userId, updateData);
-            return new ResponseEntity<>("수정완료", HttpStatus.OK);
-        }   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
+        return jwtTokenProvider.getUserId(token);
     }
 
+    @GetMapping("/info")
+    public Map<String, Object> getUserInfo(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request);
 
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            String userId = jwtTokenProvider.getUserId(token);
+            return jwtuserService.getUserInfo(userId);
+        }
+        return null;
+    }
+
+    @PutMapping("/modify")
+    public void modifyUser(HttpServletRequest request, @RequestBody Map<String, String> updateData) {
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            String userId = jwtTokenProvider.getUserId(token);
+            jwtuserService.modifyUser(userId, updateData);
+        }
+    }
 }
