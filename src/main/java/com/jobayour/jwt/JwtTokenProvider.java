@@ -1,6 +1,7 @@
 package com.jobayour.jwt;
 
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 // 토큰을 생성하고 검증하는 클래스입니다.
 // 해당 컴포넌트는 필터클래스에서 사전 검증을 거칩니다.
 @Component
+@Slf4j
 public class JwtTokenProvider {
     private String secretKey = "jobayourkey";
     private final UserDetailsService userDetailsService;
@@ -108,22 +110,22 @@ public class JwtTokenProvider {
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-            // 토큰이 만료된 경우
-            return false;
-        } catch (MalformedJwtException e) {
-            // 토큰의 형식이 올바르지 않은 경우
-            return false;
-        } catch (IllegalArgumentException e) {
-            // 토큰이 비어 있거나 null인 경우
-            return false;
-        } catch (Exception e) {
-            // 그 외의 예외 발생 시 로그를 출력하고 false를 반환합니다.
-            e.printStackTrace();
-            return false;
-        }
+       try {
+           Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+
+           return !claims.getBody().getExpiration().before(new Date());
+       }catch (SignatureException e) {
+           log.info("SignatureException");
+           throw new JwtException(ErrorMessage.WRONG_TYPE_TOKEN.getMsg());
+       } catch (MalformedJwtException e) {
+           log.info("MalformedJwtException");
+           throw new JwtException(ErrorMessage.UNSUPPORTED_TOKEN.getMsg());
+       } catch (ExpiredJwtException e) {
+           log.info("ExpiredJwtException");
+           throw new JwtException(ErrorMessage.EXPIRED_TOKEN.getMsg());
+       } catch (IllegalArgumentException e) {
+           log.info("IllegalArgumentException");
+           throw new JwtException(ErrorMessage.UNKNOWN_ERROR.getMsg());
+       }
     }
 }

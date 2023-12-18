@@ -58,15 +58,15 @@ public class UserServiceImpl implements JwtUserService {
                 .stream()
                 .findFirst()
                 .orElseThrow(null);
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("userId", user.getUserId());
-            userInfo.put("userPwd", user.getUserPwd());
-            userInfo.put("userName", user.getUserName());
-            userInfo.put("userBirthday", user.getUserBirthday());
-            userInfo.put("userPhone", user.getUserPhone());
-            userInfo.put("userEmail", user.getUserEmail());
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("userId", user.getUserId());
+        userInfo.put("userPwd", user.getUserPwd());
+        userInfo.put("userName", user.getUserName());
+        userInfo.put("userBirthday", user.getUserBirthday());
+        userInfo.put("userPhone", user.getUserPhone());
+        userInfo.put("userEmail", user.getUserEmail());
 
-            return userInfo;
+        return userInfo;
 
     }
 

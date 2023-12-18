@@ -21,6 +21,8 @@ public class JwtUserController {
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private JwtExceptionFilter jwtExceptionFilter;
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
