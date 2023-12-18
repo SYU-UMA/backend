@@ -57,7 +57,7 @@ public class UserServiceImpl implements JwtUserService {
         User user = userRepository.findUserByUserId(userId)
                 .stream()
                 .findFirst()
-                .orElseThrow(null);
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없음."));
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("userId", user.getUserId());
         userInfo.put("userPwd", user.getUserPwd());
