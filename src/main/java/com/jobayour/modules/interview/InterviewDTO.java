@@ -43,18 +43,7 @@ public class InterviewDTO implements Serializable {
         this.interviewQuestion = interviewQuestion;
         this.interviewAnswer = interviewAnswer;
     }
-
-    public InterviewDTO(int interviewNumber, int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
-        this.interviewNumber = interviewNumber;
-        this.qualificationsNumber = qualificationsNumber;
-        this.userId = userId;
-        this.job = job;
-        this.resumeNum = resumeNum;
-        this.interviewQuestion = interviewQuestion;
-        this.interviewAnswer = interviewAnswer;
-    }
-
-
+    
     public InterviewDTO(int interviewNumber, int qualificationsNumber, String userId, String job, int resumeNum, String interviewQuestion, String interviewAnswer) {
         this.interviewNumber = interviewNumber;
         this.qualificationsNumber = qualificationsNumber;
