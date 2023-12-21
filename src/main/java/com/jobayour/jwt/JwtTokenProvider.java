@@ -60,7 +60,7 @@ public class JwtTokenProvider {
 
         String refreshToken = Jwts.builder()
                 .setSubject(userId)
-                .setExpiration(new Date(now.getTime() + tokenValidTime * 2))
+                .setExpiration(new Date(now.getTime() + tokenValidTime * 332))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
@@ -110,22 +110,7 @@ public class JwtTokenProvider {
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
-       try {
            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-
            return !claims.getBody().getExpiration().before(new Date());
-       }catch (SignatureException e) {
-           log.info("SignatureException");
-           throw new JwtException(ErrorMessage.WRONG_TYPE_TOKEN.getMsg());
-       } catch (MalformedJwtException e) {
-           log.info("MalformedJwtException");
-           throw new JwtException(ErrorMessage.UNSUPPORTED_TOKEN.getMsg());
-       } catch (ExpiredJwtException e) {
-           log.info("ExpiredJwtException");
-           throw new JwtException(ErrorMessage.EXPIRED_TOKEN.getMsg());
-       } catch (IllegalArgumentException e) {
-           log.info("IllegalArgumentException");
-           throw new JwtException(ErrorMessage.UNKNOWN_ERROR.getMsg());
        }
     }
-}
