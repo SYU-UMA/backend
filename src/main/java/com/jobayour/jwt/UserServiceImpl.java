@@ -23,6 +23,7 @@ public class UserServiceImpl implements JwtUserService {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final JwtExceptionFilter jwtExceptionFilter;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
